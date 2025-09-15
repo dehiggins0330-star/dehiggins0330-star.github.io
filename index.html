@@ -3,44 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Home - Devan</title>
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
-  <!-- Hamburger menu button -->
-  <div class="menu-btn" id="menuBtn">
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
-
-  <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
-    <h2>My Site</h2>
-    <a href="index.html" class="active">Home</a>
-    <a href="about.html">About Me</a>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
     <a href="projects.html">Projects</a>
     <a href="contact.html">Contact</a>
   </div>
 
-  <!-- Main content -->
-  <div class="main">
+  <div class="topbar">
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
     <h1>Welcome</h1>
-    <p>
-      Hi! I’m Devan. I love coding, retro tech, games, and making fun projects.  
-      This is my personal site where I’ll share ideas, projects, and experiments.  
-    </p>
   </div>
 
-  <!-- JS -->
-  <script>
-    const menuBtn = document.getElementById('menuBtn');
-    const sidebar = document.getElementById('sidebar');
+  <div class="content">
+    <h2>Hey, I’m Devan 👋</h2>
+    <p>Welcome to my site! Check out the sidebar to learn more about me, see my projects, or get in touch.</p>
+  </div>
 
-    menuBtn.addEventListener('click', () => {
-      menuBtn.classList.toggle('open');
-      sidebar.classList.toggle('open');
-    });
+  <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("expanded");
+    }
   </script>
 </body>
 </html>
