@@ -4,23 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
-  <div class="sidebar">
-    <h2>My Site</h2>
+  <div class="sidebar" id="sidebar">
     <a href="index.html">Home</a>
-    <a href="about.html">About Me</a>
+    <a href="about.html">About</a>
     <a href="projects.html">Projects</a>
-    <a href="contact.html" class="active">Contact</a>
+    <a href="contact.html">Contact</a>
   </div>
 
-  <div class="main">
+  <div class="topbar">
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
     <h1>Contact</h1>
-    <p>
-      Email: <a href="mailto:devan@consrant.online">devan@consrant.online</a><br>
-      CashApp: <a href="https://cash.app/$deh0330" target="_blank">$deh0330</a>
-    </p>
   </div>
+
+  <div class="content">
+    <h2>Get in touch</h2>
+    <p>You can find me on my socials or drop me a message!</p>
+    <ul>
+      <li>📧 Email: your@email.com</li>
+      <li>🎮 Twitch: twitch.tv/yourchannel</li>
+      <li>🐦 Twitter: @yourhandle</li>
+    </ul>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("expanded");
+    }
+  </script>
 </body>
 </html>
