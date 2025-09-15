@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Me - Profile</title>
-<link rel="stylesheet" href="style.css?v=24">
+<link rel="stylesheet" href="style.css?v=25">
 </head>
 <body>
 <div class="background-grid"></div>
@@ -18,7 +18,7 @@
     <a href="review.html">Submit Review</a>
     <a href="reviews.html">Reviews</a>
     <a href="contact.html">Contact</a>
-    <a href="me.html">Me</a>
+    <a id="profileLink" href="#">Me</a>
   </nav>
 </div>
 
@@ -36,34 +36,52 @@
     <label>Change Profile Picture URL:</label>
     <input type="text" id="picInput" placeholder="Enter image URL">
     <button onclick="updateProfile()">Save Changes</button>
+    <button onclick="logoutUser()">Logout</button>
     <p id="profileMessage"></p>
   </div>
 </div>
 
 <script>
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('expanded');}
+
 // Load profile from localStorage
 window.onload = () => {
   const name = localStorage.getItem('devanName');
   const pic = localStorage.getItem('devanPic');
+  const signedIn = localStorage.getItem('signedIn');
+  const profileLink = document.getElementById('profileLink');
+
   if(name) document.getElementById('displayName').textContent = name;
   if(pic) document.getElementById('profilePic').src = pic;
+
+  if(signedIn === "true"){
+      profileLink.textContent = "Me";
+      profileLink.href = "me.html";
+  } else {
+      profileLink.textContent = "Login";
+      profileLink.href = "login.html";
+  }
 }
 
 function updateProfile() {
   const name = document.getElementById('nameInput').value;
   const pic = document.getElementById('picInput').value;
-  if(name) {
+  if(name){
     document.getElementById('displayName').textContent = name;
     localStorage.setItem('devanName', name);
   }
-  if(pic) {
+  if(pic){
     document.getElementById('profilePic').src = pic;
     localStorage.setItem('devanPic', pic);
   }
+  localStorage.setItem('signedIn', "true");
   document.getElementById('profileMessage').textContent = "Profile updated!";
 }
 
-function toggleSidebar(){document.getElementById('sidebar').classList.toggle('expanded');}
+function logoutUser(){
+  localStorage.removeItem('signedIn');
+  window.location.href = "index.html";
+}
 </script>
 </body>
 </html>
