@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact</title>
-  <link rel="stylesheet" href="style.css?v=21">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact</title>
+<link rel="stylesheet" href="style.css?v=23">
 </head>
 <body>
-  <div id="sidebar" class="sidebar">
-    <div class="menu-icon" onclick="toggleSidebar()">☰</div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About Me</a>
-      <a href="projects.html">Projects</a>
-      <a href="review.html">Submit Review</a>
-      <a href="reviews.html">Reviews</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </div>
+<div class="background-grid"></div>
 
-  <div id="main">
-    <h1>Contact Me</h1>
-    <p>Email: <a href="mailto:devan@consrant.online">devan@consrant.online</a></p>
-    <p>CashApp: <a href="https://cash.app/$deh0330" target="_blank">cash.app/$deh0330</a></p>
-  </div>
+<div id="sidebar" class="sidebar">
+  <div class="menu-icon" onclick="toggleSidebar()">☰</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About Me</a>
+    <a href="projects.html">Projects</a>
+    <a href="review.html">Submit Review</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="contact.html">Contact</a>
+    <a href="me.html">Me</a>
+  </nav>
+</div>
 
-  <script>
-    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('expanded'); }
-  </script>
+<div id="main">
+  <h1>Contact Me</h1>
+  <p>Email: <a href="mailto:devan@consrant.online">devan@consrant.online</a></p>
+  <p>CashApp: <a href="https://cash.app/$deh0330">$deh0330</a></p>
+  <p><a href="review.html">Leave a review</a></p>
+</div>
+
+<script>
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('expanded');}
+</script>
 </body>
 </html>
