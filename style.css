@@ -18,6 +18,7 @@ body, html {
   overflow: hidden;
 }
 
+/* Desktop Icons */
 .icon {
   width: 60px;
   text-align: center;
@@ -97,6 +98,17 @@ body, html {
   color: white;
   padding: 0 5px;
   box-sizing: border-box;
+}
+
+#taskbar-start-container {
+  position: relative;
+}
+
+#start-btn {
+  background: #c0c0c0;
+  border: 1px solid #fff;
+  padding: 3px 6px;
+  cursor: pointer;
 }
 
 #start-menu {
