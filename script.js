@@ -1,73 +1,37 @@
 let zIndexCounter = 1;
 
 // Open/Close Windows
-const icons = document.querySelectorAll('.icon');
 const windows = document.querySelectorAll('.window');
 const closeButtons = document.querySelectorAll('.close-btn');
-const taskbarButtonsContainer = document.getElementById('taskbar-buttons');
 
-function updateActiveButton() {
-  const windowsArray = Array.from(windows);
-  const activeWin = windowsArray.reduce((topWin, win) => {
-    return win.style.zIndex > (topWin?.style.zIndex || 0) ? win : topWin;
-  }, null);
-  
-  document.querySelectorAll('.taskbar-btn').forEach(btn => {
-    btn.classList.remove('active');
-    if(btn.dataset.window === activeWin?.id && activeWin.style.display !== 'none') {
-      btn.classList.add('active');
-    }
-  });
+function bringToFront(win) {
+  win.style.zIndex = ++zIndexCounter;
 }
 
-function createTaskbarButton(winId, title) {
-  let btn = document.createElement('button');
-  btn.className = 'taskbar-btn';
-  btn.textContent = title;
-  btn.dataset.window = winId;
-  btn.addEventListener('click', () => {
-    const win = document.getElementById(winId);
-    if(win.style.display === 'none') {
-      win.style.display = 'block';
-      win.style.zIndex = ++zIndexCounter;
-    } else {
-      win.style.display = 'none';
-    }
-    updateActiveButton();
-  });
-  taskbarButtonsContainer.appendChild(btn);
-}
+// Start Menu
+const startBtn = document.getElementById('start-btn');
+const startMenu = document.getElementById('start-menu');
+startBtn.addEventListener('click', () => {
+  startMenu.style.display = startMenu.style.display === 'flex' ? 'none' : 'flex';
+});
 
-icons.forEach(icon => {
-  icon.addEventListener('click', () => {
-    const win = document.getElementById(icon.getAttribute('data-window'));
+// Open window from start menu
+document.querySelectorAll('#start-menu .menu-item').forEach(item => {
+  item.addEventListener('click', () => {
+    const win = document.getElementById(item.dataset.window);
     win.style.display = 'block';
     win.style.top = '50px';
     win.style.left = '50px';
-    win.style.zIndex = ++zIndexCounter;
-
-    if(!document.querySelector(`.taskbar-btn[data-window="${win.id}"]`)) {
-      createTaskbarButton(win.id, icon.textContent);
-    }
-    updateActiveButton();
+    bringToFront(win);
+    startMenu.style.display = 'none';
   });
 });
 
+// Close button removes window completely
 closeButtons.forEach(btn => {
   btn.addEventListener('click', () => {
-    const win = btn.parentElement.parentElement;
+    const win = btn.closest('.window');
     win.style.display = 'none';
-    updateActiveButton();
-  });
-});
-
-// Time Slots
-const slots = document.querySelectorAll('.slot');
-const info = document.getElementById('slot-info');
-
-slots.forEach(slot => {
-  slot.addEventListener('click', () => {
-    info.textContent = slot.getAttribute('data-info');
   });
 });
 
@@ -80,46 +44,50 @@ windows.forEach(win => {
     isDragging = true;
     offsetX = e.clientX - win.offsetLeft;
     offsetY = e.clientY - win.offsetTop;
-    win.style.zIndex = ++zIndexCounter;
-    updateActiveButton();
+    bringToFront(win);
   });
 
   document.addEventListener('mousemove', (e) => {
-    if (isDragging) {
+    if(isDragging) {
       win.style.left = (e.clientX - offsetX) + 'px';
       win.style.top = (e.clientY - offsetY) + 'px';
     }
   });
 
-  document.addEventListener('mouseup', () => {
-    isDragging = false;
+  document.addEventListener('mouseup', () => isDragging = false);
+});
+
+// Resizable windows
+windows.forEach(win => {
+  const handle = win.querySelector('.resize-handle');
+  let isResizing = false, startX, startY, startWidth, startHeight;
+
+  handle.addEventListener('mousedown', e => {
+    isResizing = true;
+    startX = e.clientX;
+    startY = e.clientY;
+    startWidth = parseInt(document.defaultView.getComputedStyle(win).width, 10);
+    startHeight = parseInt(document.defaultView.getComputedStyle(win).height, 10);
+    bringToFront(win);
+    e.preventDefault();
   });
-});
 
-// Start Menu toggle
-const startBtn = document.getElementById('start-btn');
-const startMenu = document.getElementById('start-menu');
-
-startBtn.addEventListener('click', () => {
-  startMenu.style.display = startMenu.style.display === 'flex' ? 'none' : 'flex';
-});
-
-// Open window from start menu
-const menuItems = document.querySelectorAll('#start-menu .menu-item');
-menuItems.forEach(item => {
-  item.addEventListener('click', () => {
-    const win = document.getElementById(item.getAttribute('data-window'));
-    win.style.display = 'block';
-    win.style.top = '50px';
-    win.style.left = '50px';
-    win.style.zIndex = ++zIndexCounter;
-
-    if(!document.querySelector(`.taskbar-btn[data-window="${win.id}"]`)) {
-      createTaskbarButton(win.id, win.querySelector('.title-bar span').textContent);
+  document.addEventListener('mousemove', e => {
+    if(isResizing) {
+      win.style.width = (startWidth + e.clientX - startX) + 'px';
+      win.style.height = (startHeight + e.clientY - startY) + 'px';
     }
+  });
 
-    startMenu.style.display = 'none';
-    updateActiveButton();
+  document.addEventListener('mouseup', () => isResizing = false);
+});
+
+// Time Slots
+const slots = document.querySelectorAll('.slot');
+const info = document.getElementById('slot-info');
+slots.forEach(slot => {
+  slot.addEventListener('click', () => {
+    info.textContent = slot.dataset.info;
   });
 });
 
@@ -127,11 +95,10 @@ menuItems.forEach(item => {
 function updateClock() {
   const clock = document.getElementById('taskbar-clock');
   const now = new Date();
-  const hours = now.getHours().toString().padStart(2,'0');
-  const minutes = now.getMinutes().toString().padStart(2,'0');
-  const seconds = now.getSeconds().toString().padStart(2,'0');
-  clock.textContent = `${hours}:${minutes}:${seconds}`;
+  const h = now.getHours().toString().padStart(2,'0');
+  const m = now.getMinutes().toString().padStart(2,'0');
+  const s = now.getSeconds().toString().padStart(2,'0');
+  clock.textContent = `${h}:${m}:${s}`;
 }
-
 setInterval(updateClock, 1000);
 updateClock();
