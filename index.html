@@ -18,6 +18,7 @@
   <div class="icon" data-window="notepad-window"><img src="icons/notepad.png" alt="Notepad"><span>Notepad</span></div>
   <div class="icon" data-window="calc-window"><img src="icons/calc.png" alt="Calculator"><span>Calculator</span></div>
   <div class="icon" data-window="browser-window"><img src="icons/browser.png" alt="Browser"><span>Browser</span></div>
+  <div class="icon" data-window="youtube-window"><img src="icons/youtube.png" alt="YouTube"><span>YouTube</span></div>
   <div class="icon" data-window="music-window"><img src="icons/music.png" alt="Music"><span>Music</span></div>
   <div class="icon" data-window="gallery-window"><img src="icons/gallery.png" alt="Gallery"><span>Gallery</span></div>
   <div class="icon" data-window="terminal-window"><img src="icons/terminal.png" alt="Terminal"><span>Terminal</span></div>
@@ -73,7 +74,7 @@
   <div class="window" id="notepad-window">
     <div class="title-bar"><span>Notepad</span><span class="close-btn">✖</span></div>
     <div class="window-content">
-      <textarea style="width:100%;height:100%;" placeholder="Type something..."></textarea>
+      <textarea placeholder="Type something..."></textarea>
     </div>
     <div class="resize-handle"></div>
   </div>
@@ -93,6 +94,15 @@
     <div class="title-bar"><span>Browser</span><span class="close-btn">✖</span></div>
     <div class="window-content">
       <iframe src="https://www.google.com" style="width:100%;height:100%;border:none;"></iframe>
+    </div>
+    <div class="resize-handle"></div>
+  </div>
+
+  <!-- YouTube -->
+  <div class="window" id="youtube-window">
+    <div class="title-bar"><span>YouTube</span><span class="close-btn">✖</span></div>
+    <div class="window-content">
+      <iframe src="https://www.youtube.com" style="width:100%;height:100%;border:none;"></iframe>
     </div>
     <div class="resize-handle"></div>
   </div>
@@ -166,6 +176,7 @@
       <div class="menu-item" data-window="notepad-window">Notepad</div>
       <div class="menu-item" data-window="calc-window">Calculator</div>
       <div class="menu-item" data-window="browser-window">Browser</div>
+      <div class="menu-item" data-window="youtube-window">YouTube</div>
       <div class="menu-item" data-window="music-window">Music</div>
       <div class="menu-item" data-window="gallery-window">Gallery</div>
       <div class="menu-item" data-window="terminal-window">Terminal</div>
