@@ -6,6 +6,20 @@ const windows = document.querySelectorAll('.window');
 const closeButtons = document.querySelectorAll('.close-btn');
 const taskbarButtonsContainer = document.getElementById('taskbar-buttons');
 
+function updateActiveButton() {
+  const windowsArray = Array.from(windows);
+  const activeWin = windowsArray.reduce((topWin, win) => {
+    return win.style.zIndex > (topWin?.style.zIndex || 0) ? win : topWin;
+  }, null);
+  
+  document.querySelectorAll('.taskbar-btn').forEach(btn => {
+    btn.classList.remove('active');
+    if(btn.dataset.window === activeWin?.id && activeWin.style.display !== 'none') {
+      btn.classList.add('active');
+    }
+  });
+}
+
 function createTaskbarButton(winId, title) {
   let btn = document.createElement('button');
   btn.className = 'taskbar-btn';
@@ -19,6 +33,7 @@ function createTaskbarButton(winId, title) {
     } else {
       win.style.display = 'none';
     }
+    updateActiveButton();
   });
   taskbarButtonsContainer.appendChild(btn);
 }
@@ -31,10 +46,10 @@ icons.forEach(icon => {
     win.style.left = '50px';
     win.style.zIndex = ++zIndexCounter;
 
-    // Create taskbar button if not exists
     if(!document.querySelector(`.taskbar-btn[data-window="${win.id}"]`)) {
       createTaskbarButton(win.id, icon.textContent);
     }
+    updateActiveButton();
   });
 });
 
@@ -42,6 +57,7 @@ closeButtons.forEach(btn => {
   btn.addEventListener('click', () => {
     const win = btn.parentElement.parentElement;
     win.style.display = 'none';
+    updateActiveButton();
   });
 });
 
@@ -65,6 +81,7 @@ windows.forEach(win => {
     offsetX = e.clientX - win.offsetLeft;
     offsetY = e.clientY - win.offsetTop;
     win.style.zIndex = ++zIndexCounter;
+    updateActiveButton();
   });
 
   document.addEventListener('mousemove', (e) => {
@@ -97,12 +114,12 @@ menuItems.forEach(item => {
     win.style.left = '50px';
     win.style.zIndex = ++zIndexCounter;
 
-    // Create taskbar button if not exists
     if(!document.querySelector(`.taskbar-btn[data-window="${win.id}"]`)) {
       createTaskbarButton(win.id, win.querySelector('.title-bar span').textContent);
     }
 
     startMenu.style.display = 'none';
+    updateActiveButton();
   });
 });
 
