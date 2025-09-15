@@ -64,7 +64,7 @@ header {
 /* Desktop icons */
 #icons {
   position: absolute;
-  bottom: 10px;
+  bottom: 50px; /* above taskbar */
   left: 150px;
   display: flex;
   flex-direction: column;
@@ -82,46 +82,70 @@ header {
   font-size: 0.9em;
 }
 
-/* Start Menu */
-#start-menu-container {
+/* Taskbar */
+#taskbar {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background-color: #c0c0c0;
+  border-top: 2px solid #000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  box-sizing: border-box;
+  font-size: 0.9em;
+}
+
+#taskbar-start-container {
+  position: relative;
 }
 
 #start-btn {
   width: 60px;
   height: 30px;
   font-weight: bold;
-  background-color: #c0c0c0;
+  background-color: #e0e0e0;
   border: 2px solid #000;
   cursor: pointer;
 }
 
 #start-menu {
   position: absolute;
-  bottom: 35px;
+  bottom: 40px; /* above the taskbar */
   left: 0;
-  width: 150px;
+  width: 180px;
   border: 2px solid #000;
   background-color: #c0c0c0;
   display: none;
   flex-direction: column;
+  z-index: 1000;
 }
 
-#start-menu .menu-item {
+.menu-section {
+  padding: 5px 10px;
+  font-weight: bold;
+  background-color: #d0d0d0;
+  border-bottom: 1px solid #000;
+}
+
+.menu-item {
   padding: 5px 10px;
   border-bottom: 1px solid #000;
   cursor: pointer;
 }
 
-#start-menu .menu-item:hover {
+.menu-item:hover {
   background-color: #000080;
   color: #fff;
 }
 
-.hidden {
-  display: none;
+/* Clock */
+#taskbar-clock {
+  font-family: monospace;
+  padding-right: 10px;
 }
 
 /* Time slots inside window */
