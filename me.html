@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Me</title>
+  <link rel="stylesheet" href="style.css?v=22">
+</head>
+<body>
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <div class="menu-icon" onclick="toggleSidebar()">☰</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About Me</a>
+      <a href="projects.html">Projects</a>
+      <a href="review.html">Submit Review</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="contact.html">Contact</a>
+      <a href="me.html">Me</a>
+    </nav>
+  </div>
+
+  <!-- Main Content -->
+  <div id="main">
+    <h1>My Profile</h1>
+    <div class="profile-card">
+      <img id="profilePic" src="default.png" alt="Profile Picture">
+      <h2 id="displayName">Your Name</h2>
+    </div>
+
+    <div class="edit-profile">
+      <h2>Edit Profile</h2>
+      <label>Change Name:</label>
+      <input type="text" id="nameInput" placeholder="Enter your name">
+      <label>Change Profile Picture URL:</label>
+      <input type="text" id="picInput" placeholder="Enter image URL">
+      <button onclick="updateProfile()">Save Changes</button>
+      <p id="profileMessage"></p>
+    </div>
+  </div>
+
+  <script>
+    // Load profile from localStorage
+    window.onload = () => {
+      const name = localStorage.getItem('devanName');
+      const pic = localStorage.getItem('devanPic');
+      if(name) document.getElementById('displayName').textContent = name;
+      if(pic) document.getElementById('profilePic').src = pic;
+    }
+
+    function updateProfile() {
+      const name = document.getElementById('nameInput').value;
+      const pic = document.getElementById('picInput').value;
+      if(name) {
+        document.getElementById('displayName').textContent = name;
+        localStorage.setItem('devanName', name);
+      }
+      if(pic) {
+        document.getElementById('profilePic').src = pic;
+        localStorage.setItem('devanPic', pic);
+      }
+      document.getElementById('profileMessage').textContent = "Profile updated!";
+    }
+
+    // Sidebar toggle
+    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('expanded'); }
+  </script>
+</body>
+</html>
