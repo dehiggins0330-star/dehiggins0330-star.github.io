@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hatsune Miku</title>
+  <link rel="stylesheet" href="style.css?v=11">
+  <style>
+    /* Miku-specific styles */
+    #hatsune-miku {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      width: 120px;
+      animation: float 2s ease-in-out infinite alternate;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-10px); }
+    }
+
+    .note {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: cyan;
+      border-radius: 50%;
+      animation: fall 3s linear forwards;
+    }
+
+    @keyframes fall {
+      0% { top: -20px; }
+      100% { top: 100%; opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar" id="sidebar">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="projects.html">Projects</a>
+    <a href="contact.html">Contact</a>
+    <a href="media.html">Media</a>
+    <a href="miku.html" class="active">Miku</a>
+  </div>
+
+  <div class="topbar">
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    <h1>Hatsune Miku</h1>
+  </div>
+
+  <div class="content">
+    <h2>Say hello to Hatsune Miku!</h2>
+    <div class="card">
+      <p>Click Miku to play a short music clip and generate floating music notes!</p>
+      <audio id="miku-audio">
+        <source src="audio/miku-song.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+  </div>
+
+  <!-- Floating Hatsune Miku sprite -->
+  <img src="images/miku.png" id="hatsune-miku" alt="Hatsune Miku">
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("expanded");
+    }
+
+    const miku = document.getElementById('hatsune-miku');
+    const audio = document.getElementById('miku-audio');
+
+    miku.addEventListener('click', () => {
+      audio.currentTime = 0;
+      audio.play();
+
+      // create a floating note
+      const note = document.createElement('div');
+      note.classList.add('note');
+      note.style.left = Math.random() * window.innerWidth + 'px';
+      document.body.appendChild(note);
+
+      // remove note after animation
+      setTimeout(() => {
+        note.remove();
+      }, 3000);
+    });
+  </script>
+</body>
+</html>
