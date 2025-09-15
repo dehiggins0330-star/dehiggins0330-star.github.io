@@ -11,7 +11,9 @@
 </head>
 <body>
 
+<!-- Three.js + OrbitControls -->
 <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.153.0/examples/js/controls/OrbitControls.js"></script>
 <script>
   // Scene, Camera, Renderer
   const scene = new THREE.Scene();
@@ -19,6 +21,13 @@
   const renderer = new THREE.WebGLRenderer({antialias:true});
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
+
+  // Orbit Controls
+  const controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.05;
+  controls.enableZoom = false; // optional: disable zoom
+  controls.enablePan = false;  // optional: disable pan
 
   // Neon Cube - Wireframe
   const geometry = new THREE.BoxGeometry();
@@ -33,11 +42,11 @@
   const glowCube = new THREE.Mesh(glowGeom, glowMat);
   scene.add(glowCube);
 
-  // Particles
+  // Floating particles
   const particleCount = 80;
   const particles = [];
   for(let i=0;i<particleCount;i++){
-    const pGeom = new THREE.SphereGeometry(0.03, 8,8);
+    const pGeom = new THREE.SphereGeometry(0.03, 8, 8);
     const pMat = new THREE.MeshBasicMaterial({color:0x00ffff});
     const p = new THREE.Mesh(pGeom,pMat);
     p.position.set((Math.random()-0.5)*4, (Math.random()-0.5)*4, (Math.random()-0.5)*4);
@@ -50,10 +59,10 @@
   // Animate
   function animate(){
     requestAnimationFrame(animate);
-    
-    // Cube rotation
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
+
+    // Cube auto spin (subtle) if you want
+    cube.rotation.x += 0.002;
+    cube.rotation.y += 0.002;
     glowCube.rotation.x = cube.rotation.x;
     glowCube.rotation.y = cube.rotation.y;
 
@@ -65,7 +74,7 @@
       p.position.z = Math.sin(angle+i*1.2)*2;
     });
 
-    // Draw connecting lines
+    // Connecting lines
     particles.forEach((p1,i)=>{
       for(let j=i+1;j<particles.length;j++){
         const p2 = particles[j];
@@ -74,23 +83,22 @@
         const dz = p1.position.z-p2.position.z;
         const dist = Math.sqrt(dx*dx+dy*dy+dz*dz);
         if(dist<0.8){
-          const material = new THREE.LineBasicMaterial({color:0x00ffff, opacity:0.2, transparent:true});
-          const points = [];
-          points.push(p1.position.clone());
-          points.push(p2.position.clone());
+          const mat = new THREE.LineBasicMaterial({color:0x00ffff, opacity:0.2, transparent:true});
+          const points = [p1.position.clone(), p2.position.clone()];
           const geom = new THREE.BufferGeometry().setFromPoints(points);
-          const line = new THREE.Line(geom, material);
+          const line = new THREE.Line(geom, mat);
           scene.add(line);
-          setTimeout(()=>scene.remove(line),0); // remove after frame to avoid accumulation
+          setTimeout(()=>scene.remove(line),0);
         }
       }
     });
 
+    controls.update();
     renderer.render(scene,camera);
   }
   animate();
 
-  // Resize
+  // Handle resize
   window.addEventListener('resize', ()=>{
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
