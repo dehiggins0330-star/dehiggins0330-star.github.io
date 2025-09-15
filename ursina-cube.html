@@ -62,13 +62,19 @@
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
   });
 
+  // Click pulse
+  let pulseTimer = 0;
+  document.addEventListener('mousedown', ()=>{
+    pulseTimer = 10; // frames of pulse
+  });
+
   // Raycaster for hover
   const raycaster = new THREE.Raycaster();
 
   function animate(){
     requestAnimationFrame(animate);
 
-    // Cube subtle auto-spin
+    // Cube auto-spin
     cube.rotation.x += 0.002;
     cube.rotation.y += 0.002;
     glowCube.rotation.x = cube.rotation.x;
@@ -112,12 +118,19 @@
       particles.forEach(p=>p.material.opacity = 0.6);
     }
 
+    // Click pulse effect
+    if(pulseTimer>0){
+      glowMat.opacity = 1;
+      particles.forEach(p=>p.material.opacity = 1);
+      pulseTimer--;
+    }
+
     controls.update();
     renderer.render(scene,camera);
   }
   animate();
 
-  // Resize
+  // Handle resize
   window.addEventListener('resize', ()=>{
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
