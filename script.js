@@ -1,33 +1,40 @@
 let zIndexCounter = 1;
 
-// Windows
+// Desktop elements
 const windows = document.querySelectorAll('.window');
 const closeButtons = document.querySelectorAll('.close-btn');
-
-function bringToFront(win) {
-  win.style.zIndex = ++zIndexCounter;
-}
+const icons = document.querySelectorAll('.icon');
+const desktop = document.getElementById('desktop');
+const selectionBox = document.getElementById('selection-box');
 
 // Start Menu
 const startBtn = document.getElementById('start-btn');
 const startMenu = document.getElementById('start-menu');
+
 startBtn.addEventListener('click', () => {
   startMenu.style.display = startMenu.style.display === 'flex' ? 'none' : 'flex';
 });
 
-// Open window from start menu
-document.querySelectorAll('#start-menu .menu-item').forEach(item => {
-  item.addEventListener('click', () => {
-    const win = document.getElementById(item.dataset.window);
+// Bring window to front
+function bringToFront(win) {
+  win.style.zIndex = ++zIndexCounter;
+}
+
+// Open windows via icons
+icons.forEach(icon => {
+  // Random desktop placement
+  icon.style.top = Math.floor(Math.random() * (desktop.clientHeight - 80)) + 'px';
+  icon.style.left = Math.floor(Math.random() * (desktop.clientWidth - 64)) + 'px';
+  icon.addEventListener('dblclick', () => {
+    const win = document.getElementById(icon.dataset.window);
     win.style.display = 'block';
     win.style.top = '50px';
     win.style.left = '50px';
     bringToFront(win);
-    startMenu.style.display = 'none';
   });
 });
 
-// Close button removes window completely
+// Close windows
 closeButtons.forEach(btn => {
   btn.addEventListener('click', () => {
     const win = btn.closest('.window');
@@ -84,10 +91,10 @@ windows.forEach(win => {
 
 // Time Slots
 const slots = document.querySelectorAll('.slot');
-const info = document.getElementById('slot-info');
+const slotInfo = document.getElementById('slot-info');
 slots.forEach(slot => {
   slot.addEventListener('click', () => {
-    info.textContent = slot.dataset.info;
+    slotInfo.textContent = slot.dataset.info;
   });
 });
 
@@ -103,19 +110,13 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-// Desktop Selection Box
-const desktop = document.getElementById('desktop');
-const selectionBox = document.getElementById('selection-box');
-
-let isSelecting = false;
-let startX, startY;
-
+// Desktop selection box
+let isSelecting = false, startX, startY;
 desktop.addEventListener('mousedown', e => {
-  if(e.button !== 0 || e.target.closest('.window')) return;
+  if(e.button !== 0 || e.target.closest('.window') || e.target.classList.contains('icon')) return;
   isSelecting = true;
   startX = e.clientX;
   startY = e.clientY;
-
   selectionBox.style.left = `${startX}px`;
   selectionBox.style.top = `${startY}px`;
   selectionBox.style.width = '0px';
@@ -129,7 +130,6 @@ desktop.addEventListener('mousemove', e => {
   const y = Math.min(e.clientY, startY);
   const width = Math.abs(e.clientX - startX);
   const height = Math.abs(e.clientY - startY);
-
   selectionBox.style.left = x + 'px';
   selectionBox.style.top = y + 'px';
   selectionBox.style.width = width + 'px';
@@ -140,4 +140,38 @@ desktop.addEventListener('mouseup', e => {
   if(!isSelecting) return;
   isSelecting = false;
   selectionBox.style.display = 'none';
+});
+
+// Calculator buttons
+const calcButtons = [
+  '7','8','9','/','4','5','6','*','1','2','3','-','0','.','=','+'
+];
+const calcButtonsContainer = document.getElementById('calc-buttons');
+const calcDisplay = document.getElementById('calc-display');
+calcButtons.forEach(b => {
+  const btn = document.createElement('button');
+  btn.textContent = b;
+  btn.addEventListener('click', () => {
+    if(b === '='){
+      try { calcDisplay.value = eval(calcDisplay.value); } 
+      catch(e){ calcDisplay.value='Error'; }
+    } else { calcDisplay.value += b; }
+  });
+  calcButtonsContainer.appendChild(btn);
+});
+
+// Terminal
+const terminalInput = document.getElementById('terminal-input');
+const terminalOutput = document.getElementById('terminal-output');
+terminalInput.addEventListener('keydown', e => {
+  if(e.key === 'Enter'){
+    try {
+      const result = eval(terminalInput.value);
+      terminalOutput.innerHTML += `<div>&gt; ${terminalInput.value}</div><div>${result}</div>`;
+    } catch(err){
+      terminalOutput.innerHTML += `<div>&gt; ${terminalInput.value}</div><div style="color:red;">${err}</div>`;
+    }
+    terminalInput.value='';
+    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+  }
 });
