@@ -54,3 +54,24 @@ windows.forEach(win => {
     isDragging = false;
   });
 });
+
+// Start menu toggle
+const startBtn = document.getElementById('start-btn');
+const startMenu = document.getElementById('start-menu');
+
+startBtn.addEventListener('click', () => {
+  startMenu.style.display = startMenu.style.display === 'flex' ? 'none' : 'flex';
+});
+
+// Open window from start menu
+const menuItems = document.querySelectorAll('#start-menu .menu-item');
+menuItems.forEach(item => {
+  item.addEventListener('click', () => {
+    const win = document.getElementById(item.getAttribute('data-window'));
+    win.style.display = 'block';
+    win.style.top = '50px';
+    win.style.left = '50px';
+    win.style.zIndex = ++zIndexCounter;
+    startMenu.style.display = 'none'; // close menu
+  });
+});
