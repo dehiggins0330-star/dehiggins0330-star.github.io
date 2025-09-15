@@ -27,35 +27,70 @@
   const cube = new THREE.LineSegments(edges, material);
   scene.add(cube);
 
-  // Glow effect using second slightly larger cube
+  // Glow cube
   const glowGeom = new THREE.BoxGeometry(1.1,1.1,1.1);
-  const glowMat = new THREE.MeshBasicMaterial({
-    color: 0x00ffff,
-    transparent: true,
-    opacity: 0.2
-  });
+  const glowMat = new THREE.MeshBasicMaterial({ color:0x00ffff, transparent:true, opacity:0.2 });
   const glowCube = new THREE.Mesh(glowGeom, glowMat);
   scene.add(glowCube);
 
-  // Light
-  const light = new THREE.PointLight(0x00ffff, 1, 50);
-  light.position.set(5,5,5);
-  scene.add(light);
+  // Particles
+  const particleCount = 80;
+  const particles = [];
+  for(let i=0;i<particleCount;i++){
+    const pGeom = new THREE.SphereGeometry(0.03, 8,8);
+    const pMat = new THREE.MeshBasicMaterial({color:0x00ffff});
+    const p = new THREE.Mesh(pGeom,pMat);
+    p.position.set((Math.random()-0.5)*4, (Math.random()-0.5)*4, (Math.random()-0.5)*4);
+    scene.add(p);
+    particles.push(p);
+  }
 
   camera.position.z = 5;
 
-  // Animation
-  function animate() {
+  // Animate
+  function animate(){
     requestAnimationFrame(animate);
+    
+    // Cube rotation
     cube.rotation.x += 0.01;
     cube.rotation.y += 0.01;
     glowCube.rotation.x = cube.rotation.x;
     glowCube.rotation.y = cube.rotation.y;
-    renderer.render(scene, camera);
+
+    // Particle orbit
+    particles.forEach((p,i)=>{
+      const angle = Date.now()*0.001 + i;
+      p.position.x = Math.sin(angle+i)*2;
+      p.position.y = Math.cos(angle+i*1.1)*2;
+      p.position.z = Math.sin(angle+i*1.2)*2;
+    });
+
+    // Draw connecting lines
+    particles.forEach((p1,i)=>{
+      for(let j=i+1;j<particles.length;j++){
+        const p2 = particles[j];
+        const dx = p1.position.x-p2.position.x;
+        const dy = p1.position.y-p2.position.y;
+        const dz = p1.position.z-p2.position.z;
+        const dist = Math.sqrt(dx*dx+dy*dy+dz*dz);
+        if(dist<0.8){
+          const material = new THREE.LineBasicMaterial({color:0x00ffff, opacity:0.2, transparent:true});
+          const points = [];
+          points.push(p1.position.clone());
+          points.push(p2.position.clone());
+          const geom = new THREE.BufferGeometry().setFromPoints(points);
+          const line = new THREE.Line(geom, material);
+          scene.add(line);
+          setTimeout(()=>scene.remove(line),0); // remove after frame to avoid accumulation
+        }
+      }
+    });
+
+    renderer.render(scene,camera);
   }
   animate();
 
-  // Handle resize
+  // Resize
   window.addEventListener('resize', ()=>{
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
