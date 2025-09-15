@@ -60,33 +60,25 @@ function handleCursorTrails(){
   particlesArray = particlesArray.filter(p=>p.life>0);
 }
 
-function animate(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  handleCursorTrails();
-  particlesArray.forEach(p=>{p.update();p.draw();});
-  drawNeonLines();
-  requestAnimationFrame(animate);
+function drawParticleConnections(){
+  for(let i=0;i<particlesArray.length;i++){
+    for(let j=i+1;j<particlesArray.length;j++){
+      const dx = particlesArray[i].x - particlesArray[j].x;
+      const dy = particlesArray[i].y - particlesArray[j].y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if(dist < 120){
+        ctx.strokeStyle = `rgba(0,255,255,${1-dist/120})`;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(particlesArray[i].x,particlesArray[i].y);
+        ctx.lineTo(particlesArray[j].x,particlesArray[j].y);
+        ctx.stroke();
+      }
+    }
+  }
 }
 
-initParticles();
-animate();
-
-// -------------------
-// Ripple effect
-// -------------------
-document.addEventListener('click', e=>{
-  const ripple = document.createElement('div');
-  ripple.className = 'ripple';
-  ripple.style.left = e.pageX -10 +'px';
-  ripple.style.top = e.pageY -10 +'px';
-  document.body.appendChild(ripple);
-  setTimeout(()=>ripple.remove(),600);
-});
-
-// -------------------
-// Neon lines between project cards
-// -------------------
-function drawNeonLines(){
+function drawProjectLines(){
   const cards = document.querySelectorAll('.card');
   for(let i=0;i<cards.length;i++){
     for(let j=i+1;j<cards.length;j++){
@@ -105,3 +97,27 @@ function drawNeonLines(){
     }
   }
 }
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  handleCursorTrails();
+  particlesArray.forEach(p=>{p.update();p.draw();});
+  drawParticleConnections();
+  drawProjectLines();
+  requestAnimationFrame(animate);
+}
+
+initParticles();
+animate();
+
+// -------------------
+// Ripple effect
+// -------------------
+document.addEventListener('click', e=>{
+  const ripple = document.createElement('div');
+  ripple.className = 'ripple';
+  ripple.style.left = e.pageX -10 +'px';
+  ripple.style.top = e.pageY -10 +'px';
+  document.body.appendChild(ripple);
+  setTimeout(()=>ripple.remove(),600);
+});
