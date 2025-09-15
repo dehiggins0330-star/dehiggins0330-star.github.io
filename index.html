@@ -6,7 +6,7 @@
 <title>Devan's Desktop</title>
 <link rel="stylesheet" href="style.css">
 
-<!-- Firebase SDKs -->
+<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database-compat.js"></script>
 
@@ -17,76 +17,41 @@
 <div id="desktop">
 
   <!-- Icons -->
-  <div class="icon" data-window="browser-window">
-    <img src="icons/browser.png" alt="Browser">
-    Browser
-  </div>
-
-  <div class="icon" data-window="youtube-window">
-    <img src="icons/youtube.png" alt="YouTube">
-    YouTube
-  </div>
-
-  <div class="icon" data-window="calculator-window">
-    <img src="icons/calculator.png" alt="Calculator">
-    Calculator
-  </div>
-
-  <div class="icon" data-window="notepad-window">
-    <img src="icons/notepad.png" alt="Notepad">
-    Notepad
-  </div>
-
-  <div class="icon" data-window="terminal-window">
-    <img src="icons/terminal.png" alt="Terminal">
-    Terminal
-  </div>
-
-  <div class="icon" data-window="chat-window">
-    <img src="icons/chat.png" alt="Chatroom">
-    Chatroom
-  </div>
+  <div class="icon" data-window="browser-window"><img src="icons/browser.png" alt="Browser">Browser</div>
+  <div class="icon" data-window="youtube-window"><img src="icons/youtube.png" alt="YouTube">YouTube</div>
+  <div class="icon" data-window="calculator-window"><img src="icons/calculator.png" alt="Calculator">Calculator</div>
+  <div class="icon" data-window="notepad-window"><img src="icons/notepad.png" alt="Notepad">Notepad</div>
+  <div class="icon" data-window="terminal-window"><img src="icons/terminal.png" alt="Terminal">Terminal</div>
+  <div class="icon" data-window="chat-window"><img src="icons/chat.png" alt="Chatroom">Chatroom</div>
 
   <!-- Windows -->
   <div class="window" id="browser-window">
-    <div class="title-bar">
-      <span>Browser</span>
-      <span class="close-btn">✖</span>
-    </div>
+    <div class="title-bar"><span>Browser</span><span class="close-btn">✖</span></div>
     <div class="window-content">
-      <p>Click button to open: <button onclick="window.open('https://www.google.com','_blank')">Open Browser</button></p>
+      <button onclick="window.open('https://www.google.com','_blank')">Open Browser</button>
     </div>
     <div class="resize-handle"></div>
   </div>
 
   <div class="window" id="youtube-window">
-    <div class="title-bar">
-      <span>YouTube</span>
-      <span class="close-btn">✖</span>
-    </div>
+    <div class="title-bar"><span>YouTube</span><span class="close-btn">✖</span></div>
     <div class="window-content">
-      <p>Click button to open: <button onclick="window.open('https://www.youtube.com','_blank')">Open YouTube</button></p>
+      <button onclick="window.open('https://www.youtube.com','_blank')">Open YouTube</button>
     </div>
     <div class="resize-handle"></div>
   </div>
 
   <div class="window" id="calculator-window">
-    <div class="title-bar">
-      <span>Calculator</span>
-      <span class="close-btn">✖</span>
-    </div>
+    <div class="title-bar"><span>Calculator</span><span class="close-btn">✖</span></div>
     <div class="window-content">
-      <input type="text" id="calc-display" readonly style="width:100%; font-size:16px;">
+      <input type="text" id="calc-display" readonly>
       <div id="calc-buttons"></div>
     </div>
     <div class="resize-handle"></div>
   </div>
 
   <div class="window" id="notepad-window">
-    <div class="title-bar">
-      <span>Notepad</span>
-      <span class="close-btn">✖</span>
-    </div>
+    <div class="title-bar"><span>Notepad</span><span class="close-btn">✖</span></div>
     <div class="window-content">
       <textarea placeholder="Write something..."></textarea>
     </div>
@@ -94,36 +59,27 @@
   </div>
 
   <div class="window" id="terminal-window">
-    <div class="title-bar">
-      <span>Terminal</span>
-      <span class="close-btn">✖</span>
-    </div>
+    <div class="title-bar"><span>Terminal</span><span class="close-btn">✖</span></div>
     <div class="window-content">
-      <div id="terminal-output" style="height:200px; overflow:auto; border:1px solid #aaa; padding:5px; background:#000; color:#0f0;"></div>
-      <input type="text" id="terminal-input" placeholder="Type a command..." style="width:100%; box-sizing:border-box;">
+      <div id="terminal-output"></div>
+      <input type="text" id="terminal-input" placeholder="Type command...">
     </div>
     <div class="resize-handle"></div>
   </div>
 
   <div class="window" id="chat-window">
-    <div class="title-bar">
-      <span>Chatroom</span>
-      <span class="close-btn">✖</span>
-    </div>
+    <div class="title-bar"><span>Chatroom</span><span class="close-btn">✖</span></div>
     <div class="window-content">
-      <div>
-        Username: <input type="text" id="chat-username" placeholder="Enter username">
-        Room: 
-        <select id="chat-room">
-          <option value="room1">Room 1</option>
-          <option value="room2">Room 2</option>
-          <option value="room3">Room 3</option>
-          <option value="room4">Room 4</option>
-          <option value="room5">Room 5</option>
-        </select>
-      </div>
-      <div id="chat-content" style="height:200px; overflow:auto; border:1px solid #aaa; margin:5px 0; padding:5px; background:white;"></div>
-      <input type="text" id="chat-input" placeholder="Type message and press Enter" style="width:100%; box-sizing:border-box;">
+      Username: <input type="text" id="chat-username" placeholder="Enter username"><br>
+      Room: <select id="chat-room">
+        <option value="room1">Room 1</option>
+        <option value="room2">Room 2</option>
+        <option value="room3">Room 3</option>
+        <option value="room4">Room 4</option>
+        <option value="room5">Room 5</option>
+      </select>
+      <div id="chat-content"></div>
+      <input type="text" id="chat-input" placeholder="Type message and press Enter">
     </div>
     <div class="resize-handle"></div>
   </div>
