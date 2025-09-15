@@ -3,108 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Devan's Desktop</title>
+<title>Devan | Neon Glitch</title>
 <link rel="stylesheet" href="style.css">
-
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database-compat.js"></script>
-
 </head>
 <body>
 
-<!-- Desktop -->
-<div id="desktop">
+<div class="container">
+  <h1 class="glitch" data-text="I’m Devan. I code. I game. I make cool stuff.">
+    I’m Devan. I code. I game. I make cool stuff.
+  </h1>
 
-  <!-- Icons -->
-  <div class="icon" data-window="browser-window"><img src="icons/browser.png" alt="Browser">Browser</div>
-  <div class="icon" data-window="youtube-window"><img src="icons/youtube.png" alt="YouTube">YouTube</div>
-  <div class="icon" data-window="calculator-window"><img src="icons/calculator.png" alt="Calculator">Calculator</div>
-  <div class="icon" data-window="notepad-window"><img src="icons/notepad.png" alt="Notepad">Notepad</div>
-  <div class="icon" data-window="terminal-window"><img src="icons/terminal.png" alt="Terminal">Terminal</div>
-  <div class="icon" data-window="chat-window"><img src="icons/chat.png" alt="Chatroom">Chatroom</div>
-
-  <!-- Windows -->
-  <div class="window" id="browser-window">
-    <div class="title-bar"><span>Browser</span><span class="close-btn">✖</span></div>
-    <div class="window-content">
-      <button onclick="window.open('https://www.google.com','_blank')">Open Browser</button>
-    </div>
-    <div class="resize-handle"></div>
+  <div class="buttons">
+    <a href="mailto:devan@consrant.online" class="glow-btn">Email Me</a>
+    <a href="https://cash.app/$deh0330" class="glow-btn">CashApp</a>
+    <a href="#projects" class="glow-btn">My Projects</a>
   </div>
-
-  <div class="window" id="youtube-window">
-    <div class="title-bar"><span>YouTube</span><span class="close-btn">✖</span></div>
-    <div class="window-content">
-      <button onclick="window.open('https://www.youtube.com','_blank')">Open YouTube</button>
-    </div>
-    <div class="resize-handle"></div>
-  </div>
-
-  <div class="window" id="calculator-window">
-    <div class="title-bar"><span>Calculator</span><span class="close-btn">✖</span></div>
-    <div class="window-content">
-      <input type="text" id="calc-display" readonly>
-      <div id="calc-buttons"></div>
-    </div>
-    <div class="resize-handle"></div>
-  </div>
-
-  <div class="window" id="notepad-window">
-    <div class="title-bar"><span>Notepad</span><span class="close-btn">✖</span></div>
-    <div class="window-content">
-      <textarea placeholder="Write something..."></textarea>
-    </div>
-    <div class="resize-handle"></div>
-  </div>
-
-  <div class="window" id="terminal-window">
-    <div class="title-bar"><span>Terminal</span><span class="close-btn">✖</span></div>
-    <div class="window-content">
-      <div id="terminal-output"></div>
-      <input type="text" id="terminal-input" placeholder="Type command...">
-    </div>
-    <div class="resize-handle"></div>
-  </div>
-
-  <div class="window" id="chat-window">
-    <div class="title-bar"><span>Chatroom</span><span class="close-btn">✖</span></div>
-    <div class="window-content">
-      Username: <input type="text" id="chat-username" placeholder="Enter username"><br>
-      Room: <select id="chat-room">
-        <option value="room1">Room 1</option>
-        <option value="room2">Room 2</option>
-        <option value="room3">Room 3</option>
-        <option value="room4">Room 4</option>
-        <option value="room5">Room 5</option>
-      </select>
-      <div id="chat-content"></div>
-      <input type="text" id="chat-input" placeholder="Type message and press Enter">
-    </div>
-    <div class="resize-handle"></div>
-  </div>
-
-  <!-- Selection Box -->
-  <div id="selection-box"></div>
-
 </div>
 
-<!-- Taskbar -->
-<div id="taskbar">
-  <div id="taskbar-start-container">
-    <button id="start-btn">Start</button>
-    <div id="start-menu">
-      <div class="menu-section">Apps</div>
-      <div class="menu-item" data-window="browser-window">Browser</div>
-      <div class="menu-item" data-window="youtube-window">YouTube</div>
-      <div class="menu-item" data-window="calculator-window">Calculator</div>
-      <div class="menu-item" data-window="notepad-window">Notepad</div>
-      <div class="menu-item" data-window="terminal-window">Terminal</div>
-      <div class="menu-item" data-window="chat-window">Chatroom</div>
-    </div>
+<section id="projects">
+  <h2 class="section-title">Projects</h2>
+  <div class="cards">
+    <div class="card">Project 1</div>
+    <div class="card">Project 2</div>
+    <div class="card">Project 3</div>
   </div>
-  <div id="taskbar-clock"></div>
-</div>
+</section>
 
 <script src="script.js"></script>
 </body>
