@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Spinning Cube | Devan</title>
+<title>Neon Cube | Devan</title>
 <style>
   body { margin:0; overflow:hidden; background:#0f0f0f; }
   canvas { display:block; }
@@ -20,19 +20,27 @@
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
 
-  // Cube
+  // Neon Cube - Wireframe
   const geometry = new THREE.BoxGeometry();
-  const material = new THREE.MeshStandardMaterial({color:0x888888});
-  const cube = new THREE.Mesh(geometry, material);
+  const edges = new THREE.EdgesGeometry(geometry);
+  const material = new THREE.LineBasicMaterial({ color: 0x00ffff, linewidth: 2 });
+  const cube = new THREE.LineSegments(edges, material);
   scene.add(cube);
 
+  // Glow effect using second slightly larger cube
+  const glowGeom = new THREE.BoxGeometry(1.1,1.1,1.1);
+  const glowMat = new THREE.MeshBasicMaterial({
+    color: 0x00ffff,
+    transparent: true,
+    opacity: 0.2
+  });
+  const glowCube = new THREE.Mesh(glowGeom, glowMat);
+  scene.add(glowCube);
+
   // Light
-  const light = new THREE.PointLight(0xffffff, 1);
+  const light = new THREE.PointLight(0x00ffff, 1, 50);
   light.position.set(5,5,5);
   scene.add(light);
-
-  const ambient = new THREE.AmbientLight(0x404040);
-  scene.add(ambient);
 
   camera.position.z = 5;
 
@@ -41,6 +49,8 @@
     requestAnimationFrame(animate);
     cube.rotation.x += 0.01;
     cube.rotation.y += 0.01;
+    glowCube.rotation.x = cube.rotation.x;
+    glowCube.rotation.y = cube.rotation.y;
     renderer.render(scene, camera);
   }
   animate();
