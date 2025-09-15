@@ -4,23 +4,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Projects</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
-  <div class="sidebar">
-    <h2>My Site</h2>
+  <div class="sidebar" id="sidebar">
     <a href="index.html">Home</a>
-    <a href="about.html">About Me</a>
-    <a href="projects.html" class="active">Projects</a>
+    <a href="about.html">About</a>
+    <a href="projects.html">Projects</a>
     <a href="contact.html">Contact</a>
   </div>
 
-  <div class="main">
-    <h1>Projects</h1>
-    <p>
-      Here’s a collection of things I’ve worked on.  
-      (You can add cards, links, or images here later.)  
-    </p>
+  <div class="topbar">
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    <h1>My Projects</h1>
   </div>
+
+  <div class="content">
+    <h2>Things I’m working on</h2>
+    <div class="card">Website Experiments</div>
+    <div class="card">Game Development</div>
+    <div class="card">Streaming Content</div>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("expanded");
+    }
+  </script>
 </body>
 </html>
