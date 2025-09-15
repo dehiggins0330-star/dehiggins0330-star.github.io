@@ -39,9 +39,8 @@ header {
 }
 
 .close-btn {
-  width: 16px;
-  height: 16px;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .window-content {
