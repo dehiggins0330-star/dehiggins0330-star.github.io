@@ -8,8 +8,8 @@
 /* Body */
 body {
   font-family: Arial, sans-serif;
-  background: #111;
-  color: #eee;
+  background: #eee;
+  color: #111;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -22,7 +22,7 @@ body {
   top: 0;
   width: 200px;
   height: 100%;
-  background: #222;
+  background: #ccc;
   padding-top: 60px;
   transition: left 0.3s ease;
   z-index: 1000;
@@ -31,13 +31,13 @@ body {
 .sidebar a {
   display: block;
   padding: 12px;
-  color: #eee;
+  color: #111;
   text-decoration: none;
   transition: background 0.3s;
 }
 
 .sidebar a:hover {
-  background: #444;
+  background: #bbb;
 }
 
 .sidebar.expanded {
@@ -48,16 +48,16 @@ body {
 .topbar {
   display: flex;
   align-items: center;
-  background: #222;
+  background: #ddd;
   padding: 10px;
-  color: #fff;
+  color: #111;
 }
 
 .menu-btn {
   font-size: 24px;
   background: none;
   border: none;
-  color: #0ff;
+  color: #111;
   cursor: pointer;
   margin-right: 15px;
 }
@@ -66,6 +66,14 @@ body {
 .content {
   margin: 20px;
   padding: 20px;
-  background: #1a1a1a;
+  background: #ccc;
   border-radius: 8px;
+}
+
+/* Project / Contact cards */
+.card {
+  background: #ddd;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
 }
