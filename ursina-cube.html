@@ -3,35 +3,55 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ursina Cube | Devan</title>
-<link rel="stylesheet" href="style.css">
+<title>Spinning Cube | Devan</title>
+<style>
+  body { margin:0; overflow:hidden; background:#0f0f0f; }
+  canvas { display:block; }
+</style>
 </head>
 <body>
 
-<canvas id="bg-canvas"></canvas>
-<div id="scanlines"></div>
+<script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
+<script>
+  // Scene, Camera, Renderer
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({antialias:true});
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.body.appendChild(renderer.domElement);
 
-<div class="container">
-  <h1 class="glitch" data-text="Ursina Cube Demo">
-    Ursina Cube Demo
-  </h1>
+  // Cube
+  const geometry = new THREE.BoxGeometry();
+  const material = new THREE.MeshStandardMaterial({color:0x888888});
+  const cube = new THREE.Mesh(geometry, material);
+  scene.add(cube);
 
-  <div class="project-info">
-    <p>My mini Minecraft-style 3D block engine built with <strong>Python & Ursina</strong>. Place blocks, explore, and experiment with a 3D grid world!</p>
-    
-    <div class="buttons">
-      <a href="https://github.com/your-github/ursina-cube" target="_blank" class="glow-btn">View Code</a>
-      <a href="index.html" class="glow-btn">Back to Main Site</a>
-    </div>
-  </div>
+  // Light
+  const light = new THREE.PointLight(0xffffff, 1);
+  light.position.set(5,5,5);
+  scene.add(light);
 
-  <div class="screenshot">
-    <img src="cube-demo.png" alt="Ursina Cube Screenshot" style="max-width:90%; border:2px solid #0ff; border-radius:8px;">
-  </div>
-</div>
+  const ambient = new THREE.AmbientLight(0x404040);
+  scene.add(ambient);
 
-<div id="cursor"></div>
+  camera.position.z = 5;
 
-<script src="script.js"></script>
+  // Animation
+  function animate() {
+    requestAnimationFrame(animate);
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.01;
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  // Handle resize
+  window.addEventListener('resize', ()=>{
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+</script>
+
 </body>
 </html>
