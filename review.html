@@ -1,48 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Submit Review</title>
-  <link rel="stylesheet" href="style.css?v=21">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Submit Review</title>
+<link rel="stylesheet" href="style.css?v=23">
 </head>
 <body>
-  <div id="sidebar" class="sidebar">
-    <div class="menu-icon" onclick="toggleSidebar()">☰</div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About Me</a>
-      <a href="projects.html">Projects</a>
-      <a href="review.html">Submit Review</a>
-      <a href="reviews.html">Reviews</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </div>
+<div class="background-grid"></div>
 
-  <div id="main">
-    <h1>Submit Your Review</h1>
-    <form id="reviewForm">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="number" name="rating" placeholder="Rating (1-5)" min="1" max="5" required>
-      <textarea name="comment" placeholder="Your comment" required></textarea>
-      <button type="submit">Submit</button>
-    </form>
-    <p id="formMessage"></p>
-  </div>
+<div id="sidebar" class="sidebar">
+  <div class="menu-icon" onclick="toggleSidebar()">☰</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About Me</a>
+    <a href="projects.html">Projects</a>
+    <a href="review.html">Submit Review</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="contact.html">Contact</a>
+    <a href="me.html">Me</a>
+  </nav>
+</div>
 
-  <script>
-    const form = document.getElementById('reviewForm');
-    const formMessage = document.getElementById('formMessage');
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzbeEZSoBX0TjVzoDFpG__zC283I-NbNnEPDxfnApnMXpWREze3w9ffIO9VOSXn4DzP/exec';
+<div id="main">
+  <h1>Submit a Review</h1>
+  <form id="reviewForm">
+    <label>Your Name:</label>
+    <input type="text" id="reviewName" required>
+    <label>Your Review:</label>
+    <textarea id="reviewText" rows="5" required></textarea>
+    <button type="submit">Submit</button>
+    <p id="reviewMsg"></p>
+  </form>
+</div>
 
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-        .then(response => { formMessage.textContent = "Review submitted!"; form.reset(); })
-        .catch(err => { formMessage.textContent = "Error submitting review"; console.error(err); });
-    });
+<script>
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('expanded');}
 
-    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('expanded'); }
-  </script>
+// Submit review to Google Apps Script
+const form = document.getElementById('reviewForm');
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const name = document.getElementById('reviewName').value;
+  const text = document.getElementById('reviewText').value;
+  fetch('https://script.google.com/macros/s/AKfycbzbeEZSoBX0TjVzoDFpG__zC283I-NbNnEPDxfnApnMXpWREze3w9ffIO9VOSXn4DzP/exec', {
+    method: 'POST',
+    body: JSON.stringify({name, text}),
+    headers: {'Content-Type':'application/json'}
+  }).then(res => {
+    document.getElementById('reviewMsg').textContent = "Thanks for your review!";
+    form.reset();
+  }).catch(err => { console.error(err); });
+});
+</script>
 </body>
 </html>
