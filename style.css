@@ -8,16 +8,15 @@ body {
   overflow-x: hidden;
 }
 
+a { color: #ff00ff; text-decoration: none; }
+a:hover { color: #00fff7; text-shadow: 0 0 10px #ff00ff, 0 0 20px #00fff7; }
+
 h1, h2, h3 {
   color: #ff00ff;
   text-shadow: 0 0 5px #ff00ff, 0 0 10px #00fff7;
 }
 
-p {
-  font-size: 1em;
-  line-height: 1.5em;
-  text-shadow: 0 0 2px #00fff7;
-}
+p { font-size: 1.1em; text-shadow: 0 0 2px #00fff7; }
 
 /* ------------------ SIDEBAR ------------------ */
 .sidebar {
@@ -27,15 +26,12 @@ p {
   width: 60px;
   height: 100%;
   background-color: #111;
-  box-shadow: 2px 0 10px #00fff7;
-  overflow-x: hidden;
+  box-shadow: 2px 0 15px #00fff7;
   transition: width 0.3s;
   z-index: 1000;
 }
 
-.sidebar.expanded {
-  width: 200px;
-}
+.sidebar.expanded { width: 200px; }
 
 .sidebar .menu-icon {
   font-size: 2em;
@@ -62,7 +58,7 @@ p {
 .sidebar nav a:hover {
   color: #ff00ff;
   border-left: 4px solid #ff00ff;
-  text-shadow: 0 0 5px #ff00ff, 0 0 10px #00fff7;
+  text-shadow: 0 0 5px #ff00ff, 0 0 15px #00fff7;
 }
 
 /* ------------------ MAIN CONTENT ------------------ */
@@ -72,17 +68,21 @@ p {
   transition: margin-left 0.3s;
 }
 
-.sidebar.expanded ~ #main {
-  margin-left: 200px;
-}
+.sidebar.expanded ~ #main { margin-left: 200px; }
 
-#main h1 {
-  font-size: 2.5em;
+.project-card, .review, .login-form {
+  background-color: #111;
+  border: 1px solid #00fff7;
+  box-shadow: 0 0 10px #00fff7, 0 0 20px #ff00ff;
+  border-radius: 10px;
+  padding: 20px;
   margin-bottom: 20px;
+  transition: transform 0.2s, box-shadow 0.3s;
 }
 
-#main p {
-  font-size: 1.2em;
+.project-card:hover, .review:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 15px #ff00ff, 0 0 25px #00fff7;
 }
 
 /* ------------------ BUTTONS ------------------ */
@@ -96,7 +96,6 @@ button {
   cursor: pointer;
   box-shadow: 0 0 10px #00fff7;
   transition: 0.3s;
-  margin-top: 10px;
 }
 
 button:hover {
@@ -108,11 +107,10 @@ button:hover {
 /* ------------------ LOGIN FORM ------------------ */
 .login-form {
   display: none;
-  background-color: #111;
   padding: 30px;
   border-radius: 10px;
   max-width: 400px;
-  box-shadow: 0 0 10px #ff00ff;
+  box-shadow: 0 0 10px #ff00ff, 0 0 20px #00fff7;
 }
 
 .login-form input {
@@ -122,30 +120,14 @@ button:hover {
   border-radius: 5px;
   border: none;
   outline: none;
-}
-
-#loginMessage {
+  background-color: #0b0c10;
   color: #00fff7;
-  margin-top: 10px;
-  text-align: center;
 }
 
 /* ------------------ MEDIA QUERIES ------------------ */
 @media (max-width: 768px) {
-  #main {
-    margin-left: 0;
-    padding: 20px;
-  }
-
-  .sidebar {
-    width: 50px;
-  }
-
-  .sidebar.expanded {
-    width: 150px;
-  }
-
-  h1 {
-    font-size: 2em;
-  }
+  #main { margin-left: 0; padding: 20px; }
+  .sidebar { width: 50px; }
+  .sidebar.expanded { width: 150px; }
+  h1 { font-size: 2em; }
 }
