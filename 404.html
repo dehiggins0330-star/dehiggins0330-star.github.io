@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>404 Not Found</title>
-  <link rel="stylesheet" href="style.css?v=13">
+  <link rel="stylesheet" href="style.css?v=14">
   <style>
     body {
       display: flex;
@@ -20,8 +20,8 @@
     .container {
       display: flex;
       align-items: center;
-      gap: 50px; /* space between text and image */
-      flex-wrap: wrap; /* makes it responsive */
+      gap: 50px;
+      flex-wrap: wrap;
       text-align: left;
     }
 
@@ -50,7 +50,7 @@
     }
 
     a:hover {
-      background-color: #00ffff; /* neon cyan pop */
+      background-color: #00ffff;
       color: #000;
     }
 
@@ -58,6 +58,13 @@
       max-width: 300px;
       width: 100%;
       border-radius: 10px;
+      animation: float 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
     }
   </style>
 </head>
