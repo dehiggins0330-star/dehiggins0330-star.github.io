@@ -1,57 +1,44 @@
-/* General Styles */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f7f7f7;
-    color: #333;
+  font-family: 'Courier New', monospace;
+  background-color: #f0f0f0;
+  color: #222;
+  margin: 0;
+  padding: 0;
 }
 
-/* Header */
-header {
-    background-color: #4CAF50;
-    color: white;
-    text-align: center;
-    padding: 2rem 1rem;
+header, footer {
+  background-color: #222;
+  color: #fff;
+  text-align: center;
+  padding: 1em;
 }
 
-header h1 {
-    margin: 0.5rem 0;
-}
-
-header p {
-    font-size: 1.2rem;
-}
-
-/* Main Content */
-main {
-    padding: 2rem 1rem;
-    max-width: 800px;
-    margin: auto;
+h1, h2, h3 {
+  margin: 0.5em 0;
 }
 
 section {
-    margin-bottom: 2rem;
+  padding: 1em 2em;
+  border-bottom: 1px solid #ccc;
 }
 
-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 0.8rem 1.2rem;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 5px;
+.slot {
+  display: inline-block;
+  margin: 0.5em;
+  padding: 0.5em 1em;
+  border: 2px solid #222;
+  cursor: pointer;
+  background-color: #fff;
+  transition: 0.2s;
 }
 
-button:hover {
-    background-color: #45a049;
+.slot:hover {
+  background-color: #222;
+  color: #fff;
 }
 
-/* Footer */
-footer {
-    text-align: center;
-    padding: 1rem;
-    background-color: #222;
-    color: white;
+.project {
+  border: 1px dashed #222;
+  padding: 0.5em;
+  margin: 0.5em 0;
 }
