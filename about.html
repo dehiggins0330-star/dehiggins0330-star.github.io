@@ -4,22 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Me</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
-  <div class="sidebar">
-    <h2>My Site</h2>
+  <div class="sidebar" id="sidebar">
     <a href="index.html">Home</a>
-    <a href="about.html" class="active">About Me</a>
+    <a href="about.html">About</a>
     <a href="projects.html">Projects</a>
     <a href="contact.html">Contact</a>
   </div>
 
-  <div class="main">
+  <div class="topbar">
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
     <h1>About Me</h1>
-    <p>
-      I am Devan. I be doin stuff... like streaming and making website(s?) .... and other cool stuff  
-    </p>
   </div>
+
+  <div class="content">
+    <h2>Hello!</h2>
+    <p>I am Devan. I be doin stuff... like streaming and making website(s?) .... and other cool stuff.</p>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("expanded");
+    }
+  </script>
 </body>
 </html>
