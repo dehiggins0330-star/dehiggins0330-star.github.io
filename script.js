@@ -12,9 +12,8 @@ startBtn.addEventListener('click', () => {
   startMenu.style.display = startMenu.style.display === 'flex' ? 'none' : 'flex';
 });
 
-// Start menu item clicks
-const menuItems = document.querySelectorAll('.menu-item');
-menuItems.forEach(item => {
+// Start menu items
+document.querySelectorAll('.menu-item').forEach(item => {
   item.addEventListener('click', () => {
     const win = document.getElementById(item.dataset.window);
     if(win){
@@ -32,11 +31,10 @@ function bringToFront(win) {
   win.style.zIndex = ++zIndexCounter;
 }
 
-// Open windows via icons on single click
+// Icons open windows
 icons.forEach(icon => {
   icon.style.top = Math.floor(Math.random() * (desktop.clientHeight - 80)) + 'px';
   icon.style.left = Math.floor(Math.random() * (desktop.clientWidth - 64)) + 'px';
-  
   icon.addEventListener('click', () => {
     const win = document.getElementById(icon.dataset.window);
     if(win){
@@ -48,7 +46,7 @@ icons.forEach(icon => {
   });
 });
 
-// Close windows
+// Close buttons
 closeButtons.forEach(btn => {
   btn.addEventListener('click', () => {
     const win = btn.closest('.window');
@@ -56,7 +54,7 @@ closeButtons.forEach(btn => {
   });
 });
 
-// Draggable & Resizable windows (same as before)
+// Draggable & Resizable windows
 windows.forEach(win => {
   const titleBar = win.querySelector('.title-bar');
   let offsetX = 0, offsetY = 0, isDragging = false;
@@ -143,3 +141,46 @@ function updateClock() {
 }
 setInterval(updateClock, 1000);
 updateClock();
+
+// Calculator
+const calcButtons = [
+  '7','8','9','/','4','5','6','*','1','2','3','-','0','.','=','+'
+];
+const calcButtonsContainer = document.getElementById('calc-buttons');
+const calcDisplay = document.getElementById('calc-display');
+calcButtons.forEach(b => {
+  const btn = document.createElement('button');
+  btn.textContent = b;
+  btn.addEventListener('click', () => {
+    if(b === '='){
+      try { calcDisplay.value = eval(calcDisplay.value); } 
+      catch(e){ calcDisplay.value='Error'; }
+    } else { calcDisplay.value += b; }
+  });
+  calcButtonsContainer.appendChild(btn);
+});
+
+// Terminal
+const terminalInput = document.getElementById('terminal-input');
+const terminalOutput = document.getElementById('terminal-output');
+terminalInput.addEventListener('keydown', e => {
+  if(e.key === 'Enter'){
+    const command = terminalInput.value;
+    terminalOutput.innerHTML += `<div>> ${command}</div>`;
+    try {
+      const result = eval(command);
+      terminalOutput.innerHTML += `<div>${result}</div>`;
+    } catch(err){
+      terminalOutput.innerHTML += `<div style="color:red;">Error: ${err}</div>`;
+    }
+    terminalInput.value = '';
+    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+  }
+});
+
+// Time Slots
+document.querySelectorAll('.slot').forEach(slot=>{
+  slot.addEventListener('click',()=>{
+    document.getElementById('slot-info').textContent = slot.dataset.info;
+  });
+});
