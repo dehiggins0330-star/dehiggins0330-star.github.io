@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Neon Cube | Devan</title>
+<title>Reactive Neon Cube | Devan</title>
 <style>
   body { margin:0; overflow:hidden; background:#0f0f0f; }
   canvas { display:block; }
@@ -11,7 +11,6 @@
 </head>
 <body>
 
-<!-- Three.js + OrbitControls -->
 <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/examples/js/controls/OrbitControls.js"></script>
 <script>
@@ -26,14 +25,14 @@
   const controls = new THREE.OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
   controls.dampingFactor = 0.05;
-  controls.enableZoom = false; // optional: disable zoom
-  controls.enablePan = false;  // optional: disable pan
+  controls.enableZoom = false;
+  controls.enablePan = false;
 
   // Neon Cube - Wireframe
   const geometry = new THREE.BoxGeometry();
   const edges = new THREE.EdgesGeometry(geometry);
-  const material = new THREE.LineBasicMaterial({ color: 0x00ffff, linewidth: 2 });
-  const cube = new THREE.LineSegments(edges, material);
+  const cubeMaterial = new THREE.LineBasicMaterial({ color: 0x00ffff, linewidth: 2 });
+  const cube = new THREE.LineSegments(edges, cubeMaterial);
   scene.add(cube);
 
   // Glow cube
@@ -47,7 +46,7 @@
   const particles = [];
   for(let i=0;i<particleCount;i++){
     const pGeom = new THREE.SphereGeometry(0.03, 8, 8);
-    const pMat = new THREE.MeshBasicMaterial({color:0x00ffff});
+    const pMat = new THREE.MeshBasicMaterial({color:0x00ffff, transparent:true, opacity:0.6});
     const p = new THREE.Mesh(pGeom,pMat);
     p.position.set((Math.random()-0.5)*4, (Math.random()-0.5)*4, (Math.random()-0.5)*4);
     scene.add(p);
@@ -56,11 +55,20 @@
 
   camera.position.z = 5;
 
-  // Animate
+  // Mouse tracking
+  const mouse = new THREE.Vector2();
+  document.addEventListener('mousemove', (event)=>{
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  });
+
+  // Raycaster to detect hover
+  const raycaster = new THREE.Raycaster();
+
   function animate(){
     requestAnimationFrame(animate);
 
-    // Cube auto spin (subtle) if you want
+    // Auto spin cube
     cube.rotation.x += 0.002;
     cube.rotation.y += 0.002;
     glowCube.rotation.x = cube.rotation.x;
@@ -93,12 +101,23 @@
       }
     });
 
+    // Hover detection
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObject(cube);
+    if(intersects.length > 0){
+      glowMat.opacity = 0.6; // Cube glows brighter
+      particles.forEach(p=>p.material.opacity = 1); // Particles brighter
+    } else {
+      glowMat.opacity = 0.2;
+      particles.forEach(p=>p.material.opacity = 0.6);
+    }
+
     controls.update();
-    renderer.render(scene,camera);
+    renderer.render(scene, camera);
   }
   animate();
 
-  // Handle resize
+  // Resize
   window.addEventListener('resize', ()=>{
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
