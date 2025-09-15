@@ -1,6 +1,6 @@
 let zIndexCounter = 1;
 
-// Open/Close Windows
+// Windows
 const windows = document.querySelectorAll('.window');
 const closeButtons = document.querySelectorAll('.close-btn');
 
@@ -40,14 +40,14 @@ windows.forEach(win => {
   const titleBar = win.querySelector('.title-bar');
   let offsetX = 0, offsetY = 0, isDragging = false;
 
-  titleBar.addEventListener('mousedown', (e) => {
+  titleBar.addEventListener('mousedown', e => {
     isDragging = true;
     offsetX = e.clientX - win.offsetLeft;
     offsetY = e.clientY - win.offsetTop;
     bringToFront(win);
   });
 
-  document.addEventListener('mousemove', (e) => {
+  document.addEventListener('mousemove', e => {
     if(isDragging) {
       win.style.left = (e.clientX - offsetX) + 'px';
       win.style.top = (e.clientY - offsetY) + 'px';
@@ -102,3 +102,42 @@ function updateClock() {
 }
 setInterval(updateClock, 1000);
 updateClock();
+
+// Desktop Selection Box
+const desktop = document.getElementById('desktop');
+const selectionBox = document.getElementById('selection-box');
+
+let isSelecting = false;
+let startX, startY;
+
+desktop.addEventListener('mousedown', e => {
+  if(e.button !== 0 || e.target.closest('.window')) return;
+  isSelecting = true;
+  startX = e.clientX;
+  startY = e.clientY;
+
+  selectionBox.style.left = `${startX}px`;
+  selectionBox.style.top = `${startY}px`;
+  selectionBox.style.width = '0px';
+  selectionBox.style.height = '0px';
+  selectionBox.style.display = 'block';
+});
+
+desktop.addEventListener('mousemove', e => {
+  if(!isSelecting) return;
+  const x = Math.min(e.clientX, startX);
+  const y = Math.min(e.clientY, startY);
+  const width = Math.abs(e.clientX - startX);
+  const height = Math.abs(e.clientY - startY);
+
+  selectionBox.style.left = x + 'px';
+  selectionBox.style.top = y + 'px';
+  selectionBox.style.width = width + 'px';
+  selectionBox.style.height = height + 'px';
+});
+
+desktop.addEventListener('mouseup', e => {
+  if(!isSelecting) return;
+  isSelecting = false;
+  selectionBox.style.display = 'none';
+});
