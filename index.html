@@ -7,7 +7,15 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="sidebar">
+  <!-- Hamburger menu button -->
+  <div class="menu-btn" id="menuBtn">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
     <h2>My Site</h2>
     <a href="index.html" class="active">Home</a>
     <a href="about.html">About Me</a>
@@ -15,6 +23,7 @@
     <a href="contact.html">Contact</a>
   </div>
 
+  <!-- Main content -->
   <div class="main">
     <h1>Welcome</h1>
     <p>
@@ -22,5 +31,16 @@
       This is my personal site where I’ll share ideas, projects, and experiments.  
     </p>
   </div>
+
+  <!-- JS -->
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const sidebar = document.getElementById('sidebar');
+
+    menuBtn.addEventListener('click', () => {
+      menuBtn.classList.toggle('open');
+      sidebar.classList.toggle('open');
+    });
+  </script>
 </body>
 </html>
