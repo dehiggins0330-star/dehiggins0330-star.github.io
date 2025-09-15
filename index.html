@@ -20,7 +20,7 @@
         <span class="close-btn">✖</span>
       </div>
       <div class="window-content">
-        <p>I’m Devan. I like coding, retro tech, games, and making fun projects. Welcome to my site</p>
+        <p>I’m Devan. I love coding, retro tech, games, and making fun projects. Welcome to my site</p>
       </div>
     </div>
 
@@ -45,7 +45,7 @@
         <span class="close-btn">✖</span>
       </div>
       <div class="window-content">
-        <div class="slot" data-info="Sleeping 2–5 PM">2–5 PM</div>
+        <div class="slot" data-info="Usually sleeping 2–5 PM">2–5 PM</div>
         <div class="slot" data-info="Streaming games 7 PM">7 PM</div>
         <div class="slot" data-info="Gaming 11 PM">11 PM</div>
         <p id="slot-info">Click a slot to see what I’m up to!</p>
@@ -74,15 +74,21 @@
     <div class="icon" data-window="contact-window">Contact</div>
   </div>
 
-  <!-- Start Menu -->
-  <div id="start-menu-container">
-    <button id="start-btn">Start</button>
-    <div id="start-menu" class="hidden">
-      <div class="menu-item" data-window="about-window">About Me</div>
-      <div class="menu-item" data-window="projects-window">Projects</div>
-      <div class="menu-item" data-window="slots-window">Time Slots</div>
-      <div class="menu-item" data-window="contact-window">Contact</div>
+  <!-- Taskbar -->
+  <div id="taskbar">
+    <div id="taskbar-start-container">
+      <button id="start-btn">Start</button>
+      <div id="start-menu" class="hidden">
+        <div class="menu-section">Apps</div>
+        <div class="menu-item" data-window="about-window">About Me</div>
+        <div class="menu-item" data-window="projects-window">Projects</div>
+        <div class="menu-section">Fun</div>
+        <div class="menu-item" data-window="slots-window">Time Slots</div>
+        <div class="menu-section">Contact</div>
+        <div class="menu-item" data-window="contact-window">Contact</div>
+      </div>
     </div>
+    <div id="taskbar-clock"></div>
   </div>
 
   <script src="script.js"></script>
