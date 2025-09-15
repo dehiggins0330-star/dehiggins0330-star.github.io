@@ -7,68 +7,26 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <h1>Consrant’s Desktop</h1>
-</header>
-
 <div id="desktop">
   <div id="selection-box"></div>
 
   <!-- Desktop Icons -->
-  <div class="icon" data-window="about-window">
-    <img src="icons/about.png" alt="About">
-    <span>About Me</span>
-  </div>
-  <div class="icon" data-window="projects-window">
-    <img src="icons/projects.png" alt="Projects">
-    <span>Projects</span>
-  </div>
-  <div class="icon" data-window="slots-window">
-    <img src="icons/timeslot.png" alt="Time Slots">
-    <span>Time Slots</span>
-  </div>
-  <div class="icon" data-window="contact-window">
-    <img src="icons/email.png" alt="Contact">
-    <span>Contact</span>
-  </div>
-  <div class="icon" data-window="notepad-window">
-    <img src="icons/notepad.png" alt="Notepad">
-    <span>Notepad</span>
-  </div>
-  <div class="icon" data-window="calc-window">
-    <img src="icons/calc.png" alt="Calculator">
-    <span>Calculator</span>
-  </div>
-  <div class="icon" data-window="browser-window">
-    <img src="icons/browser.png" alt="Browser">
-    <span>Browser</span>
-  </div>
-  <div class="icon" data-window="music-window">
-    <img src="icons/music.png" alt="Music">
-    <span>Music</span>
-  </div>
-  <div class="icon" data-window="gallery-window">
-    <img src="icons/gallery.png" alt="Gallery">
-    <span>Gallery</span>
-  </div>
-  <div class="icon" data-window="terminal-window">
-    <img src="icons/terminal.png" alt="Terminal">
-    <span>Terminal</span>
-  </div>
-  <div class="icon" data-window="games-window">
-    <img src="icons/games.png" alt="Games">
-    <span>Games</span>
-  </div>
-  <div class="icon" data-window="settings-window">
-    <img src="icons/settings.png" alt="Settings">
-    <span>Settings</span>
-  </div>
-  <div class="icon" data-window="easter-window">
-    <img src="icons/easter.png" alt="Surprise">
-    <span>Easter Egg</span>
-  </div>
+  <div class="icon" data-window="about-window"><img src="icons/about.png" alt="About"><span>About Me</span></div>
+  <div class="icon" data-window="projects-window"><img src="icons/projects.png" alt="Projects"><span>Projects</span></div>
+  <div class="icon" data-window="slots-window"><img src="icons/timeslot.png" alt="Time Slots"><span>Time Slots</span></div>
+  <div class="icon" data-window="contact-window"><img src="icons/email.png" alt="Contact"><span>Contact</span></div>
+  <div class="icon" data-window="notepad-window"><img src="icons/notepad.png" alt="Notepad"><span>Notepad</span></div>
+  <div class="icon" data-window="calc-window"><img src="icons/calc.png" alt="Calculator"><span>Calculator</span></div>
+  <div class="icon" data-window="browser-window"><img src="icons/browser.png" alt="Browser"><span>Browser</span></div>
+  <div class="icon" data-window="music-window"><img src="icons/music.png" alt="Music"><span>Music</span></div>
+  <div class="icon" data-window="gallery-window"><img src="icons/gallery.png" alt="Gallery"><span>Gallery</span></div>
+  <div class="icon" data-window="terminal-window"><img src="icons/terminal.png" alt="Terminal"><span>Terminal</span></div>
+  <div class="icon" data-window="games-window"><img src="icons/games.png" alt="Games"><span>Games</span></div>
+  <div class="icon" data-window="settings-window"><img src="icons/settings.png" alt="Settings"><span>Settings</span></div>
+  <div class="icon" data-window="easter-window"><img src="icons/easter.png" alt="Easter"><span>Easter Egg</span></div>
 
-  <!-- Windows (same as before, shortened for readability) -->
+  <!-- Windows -->
+  <!-- About -->
   <div class="window" id="about-window">
     <div class="title-bar"><span>About Me</span><span class="close-btn">✖</span></div>
     <div class="window-content">
@@ -77,6 +35,7 @@
     <div class="resize-handle"></div>
   </div>
 
+  <!-- Projects -->
   <div class="window" id="projects-window">
     <div class="title-bar"><span>Projects</span><span class="close-btn">✖</span></div>
     <div class="window-content">
@@ -88,6 +47,7 @@
     <div class="resize-handle"></div>
   </div>
 
+  <!-- Time Slots -->
   <div class="window" id="slots-window">
     <div class="title-bar"><span>Fun Time Slots</span><span class="close-btn">✖</span></div>
     <div class="window-content">
@@ -99,6 +59,7 @@
     <div class="resize-handle"></div>
   </div>
 
+  <!-- Contact -->
   <div class="window" id="contact-window">
     <div class="title-bar"><span>Contact</span><span class="close-btn">✖</span></div>
     <div class="window-content">
@@ -108,7 +69,88 @@
     <div class="resize-handle"></div>
   </div>
 
-  <!-- Add the rest of the windows as before: Notepad, Calculator, Browser, Music, Gallery, Terminal, Games, Settings, Easter Egg -->
+  <!-- Notepad -->
+  <div class="window" id="notepad-window">
+    <div class="title-bar"><span>Notepad</span><span class="close-btn">✖</span></div>
+    <div class="window-content">
+      <textarea style="width:100%;height:100%;" placeholder="Type something..."></textarea>
+    </div>
+    <div class="resize-handle"></div>
+  </div>
+
+  <!-- Calculator -->
+  <div class="window" id="calc-window">
+    <div class="title-bar"><span>Calculator</span><span class="close-btn">✖</span></div>
+    <div class="window-content">
+      <input type="text" id="calc-display" readonly>
+      <div id="calc-buttons"></div>
+    </div>
+    <div class="resize-handle"></div>
+  </div>
+
+  <!-- Browser -->
+  <div class="window" id="browser-window">
+    <div class="title-bar"><span>Browser</span><span class="close-btn">✖</span></div>
+    <div class="window-content">
+      <iframe src="https://www.google.com" style="width:100%;height:100%;border:none;"></iframe>
+    </div>
+    <div class="resize-handle"></div>
+  </div>
+
+  <!-- Music -->
+  <div class="window" id="music-window">
+    <div class="title-bar"><span>Music Player</span><span class="close-btn">✖</span></div>
+    <div class="window-content">
+      <audio controls src="music/sample.mp3"></audio>
+      <p>Sample track. Replace with your own music!</p>
+    </div>
+    <div class="resize-handle"></div>
+  </div>
+
+  <!-- Gallery -->
+  <div class="window" id="gallery-window">
+    <div class="title-bar"><span>Gallery</span><span class="close-btn">✖</span></div>
+    <div class="window-content">
+      <p>Gallery placeholder. Show your images here!</p>
+    </div>
+    <div class="resize-handle"></div>
+  </div>
+
+  <!-- Terminal -->
+  <div class="window" id="terminal-window">
+    <div class="title-bar"><span>Terminal</span><span class="close-btn">✖</span></div>
+    <div class="window-content" style="background:black;color:white;overflow:auto;" id="terminal-output"></div>
+    <input type="text" id="terminal-input" style="width:100%;box-sizing:border-box;background:black;color:white;border:none;">
+    <div class="resize-handle"></div>
+  </div>
+
+  <!-- Games -->
+  <div class="window" id="games-window">
+    <div class="title-bar"><span>Games</span><span class="close-btn">✖</span></div>
+    <div class="window-content">
+      <p>Games placeholder. Add your mini-games here!</p>
+    </div>
+    <div class="resize-handle"></div>
+  </div>
+
+  <!-- Settings -->
+  <div class="window" id="settings-window">
+    <div class="title-bar"><span>Settings</span><span class="close-btn">✖</span></div>
+    <div class="window-content">
+      <p>Settings placeholder. Add themes, sounds, or options!</p>
+    </div>
+    <div class="resize-handle"></div>
+  </div>
+
+  <!-- Easter Egg -->
+  <div class="window" id="easter-window">
+    <div class="title-bar"><span>Easter Egg</span><span class="close-btn">✖</span></div>
+    <div class="window-content">
+      <p>🎉 Surprise! You found the Easter Egg! 🎉</p>
+    </div>
+    <div class="resize-handle"></div>
+  </div>
+
 </div>
 
 <!-- Taskbar -->
