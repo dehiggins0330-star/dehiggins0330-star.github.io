@@ -11,11 +11,9 @@
 </head>
 <body>
 
-<!-- Three.js + OrbitControls -->
-<script type="module">
-  import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.module.js';
-  import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.153.0/examples/jsm/controls/OrbitControls.js';
-
+<script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.153.0/examples/js/controls/OrbitControls.js"></script>
+<script>
   // Scene, Camera, Renderer
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
@@ -24,7 +22,7 @@
   document.body.appendChild(renderer.domElement);
 
   // Orbit Controls
-  const controls = new OrbitControls(camera, renderer.domElement);
+  const controls = new THREE.OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
   controls.dampingFactor = 0.05;
   controls.enableZoom = false;
@@ -70,6 +68,7 @@
   function animate(){
     requestAnimationFrame(animate);
 
+    // Cube subtle auto-spin
     cube.rotation.x += 0.002;
     cube.rotation.y += 0.002;
     glowCube.rotation.x = cube.rotation.x;
