@@ -4,47 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact</title>
-  <link rel="stylesheet" href="style.css?v=17">
-  <style>
-    body {
-      background-color: #2b2b2b;
-      color: #e0e0e0;
-      font-family: Arial, sans-serif;
-      padding: 20px;
-    }
-
-    h2 {
-      color: #00ffff;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .contact-info {
-      max-width: 500px;
-      margin: 0 auto 20px auto;
-      text-align: center;
-    }
-
-    .contact-info a {
-      color: #00ffff;
-      text-decoration: none;
-    }
-
-    .contact-info a:hover {
-      text-decoration: underline;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css?v=21">
 </head>
 <body>
+  <div id="sidebar" class="sidebar">
+    <div class="menu-icon" onclick="toggleSidebar()">☰</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About Me</a>
+      <a href="projects.html">Projects</a>
+      <a href="review.html">Submit Review</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
 
-<h2>Contact Me</h2>
+  <div id="main">
+    <h1>Contact Me</h1>
+    <p>Email: <a href="mailto:devan@consrant.online">devan@consrant.online</a></p>
+    <p>CashApp: <a href="https://cash.app/$deh0330" target="_blank">cash.app/$deh0330</a></p>
+  </div>
 
-<div class="contact-info">
-  <p>Email: <a href="mailto:devan@consrant.online">devan@consrant.online</a></p>
-  <p>CashApp: <a href="https://cash.app/$deh0330" target="_blank">cash.app/$deh0330</a></p>
-  <p>Want to leave a review? <a href="review.html">Submit a Review</a></p>
-  <p>See what others are saying: <a href="reviews.html">Read Reviews</a></p>
-</div>
-
+  <script>
+    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('expanded'); }
+  </script>
 </body>
 </html>
