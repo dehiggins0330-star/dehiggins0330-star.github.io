@@ -3,7 +3,7 @@ body {
   font-family: 'Courier New', monospace;
   margin: 0;
   padding: 0;
-  background-color: #008080; /* classic teal Windows 98 */
+  background-color: #008080; /* teal Windows 98 */
   overflow: hidden;
 }
 
@@ -21,7 +21,7 @@ header {
 #desktop {
   position: relative;
   width: 100%;
-  height: calc(100vh - 60px); /* full screen minus header */
+  height: calc(100vh - 60px);
 }
 
 /* Windows */
