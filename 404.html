@@ -4,19 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>404 Not Found</title>
-  <link rel="stylesheet" href="style.css?v=12">
+  <link rel="stylesheet" href="style.css?v=13">
   <style>
     body {
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
       background-color: #2b2b2b;
       color: #e0e0e0;
       font-family: Arial, sans-serif;
-      text-align: center;
       margin: 0;
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      gap: 50px; /* space between text and image */
+      flex-wrap: wrap; /* makes it responsive */
+      text-align: left;
+    }
+
+    .text {
+      max-width: 400px;
     }
 
     h1 {
@@ -26,7 +36,7 @@
 
     p {
       font-size: 1.5em;
-      margin: 10px 0 30px 0;
+      margin: 10px 0 20px 0;
     }
 
     a {
@@ -43,11 +53,22 @@
       background-color: #00ffff; /* neon cyan pop */
       color: #000;
     }
+
+    .image {
+      max-width: 300px;
+      width: 100%;
+      border-radius: 10px;
+    }
   </style>
 </head>
 <body>
-  <h1>404</h1>
-  <p>Oops! Page not found.</p>
-  <a href="index.html">Go Back Home</a>
+  <div class="container">
+    <div class="text">
+      <h1>404</h1>
+      <p>Oops! Page not found.</p>
+      <a href="index.html">Go Back Home</a>
+    </div>
+    <img src="images/funni.jpg" alt="Funni Image" class="image">
+  </div>
 </body>
 </html>
