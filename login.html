@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+<link rel="stylesheet" href="style.css?v=25">
+</head>
+<body>
+<div class="background-grid"></div>
+
+<div id="sidebar" class="sidebar">
+  <div class="menu-icon" onclick="toggleSidebar()">☰</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About Me</a>
+    <a href="projects.html">Projects</a>
+    <a href="review.html">Submit Review</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="contact.html">Contact</a>
+    <a id="profileLink" href="#">Login</a>
+  </nav>
+</div>
+
+<div id="main">
+  <h1>Login</h1>
+  <p>Enter any username to sign in (this is a simple demo login, no passwords)</p>
+  <form id="loginForm">
+    <label>Username:</label>
+    <input type="text" id="usernameInput" required placeholder="Enter username">
+    <button type="submit">Login</button>
+  </form>
+  <p id="loginMsg"></p>
+</div>
+
+<script>
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('expanded');}
+
+// Sidebar login check
+window.onload = () => {
+  const signedIn = localStorage.getItem('signedIn');
+  const profileLink = document.getElementById('profileLink');
+  if(signedIn === "true"){
+      profileLink.textContent = "Me";
+      profileLink.href = "me.html";
+  } else {
+      profileLink.textContent = "Login";
+      profileLink.href = "login.html";
+  }
+}
+
+// Handle login
+document.getElementById('loginForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const username = document.getElementById('usernameInput').value;
+  if(username){
+    localStorage.setItem('signedIn', "true");
+    localStorage.setItem('devanName', username);
+    document.getElementById('loginMsg').textContent = "Signed in successfully!";
+    setTimeout(()=>{ window.location.href = "me.html"; }, 1000);
+  }
+});
+</script>
+</body>
+</html>
