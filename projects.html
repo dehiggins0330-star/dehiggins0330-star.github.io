@@ -1,88 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Projects</title>
-  <link rel="stylesheet" href="style.css?v=21">
-  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-auth-compat.js"></script>
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyCmOwbTZrGzc0zVRtD7fSasum1Qbdt_h-g",
-      authDomain: "consrantsite.firebaseapp.com",
-      projectId: "consrantsite",
-      storageBucket: "consrantsite.firebasestorage.app",
-      messagingSenderId: "108690378578",
-      appId: "1:108690378578:web:87d2d6d93f439f69c9f48b",
-      measurementId: "G-PL5XF14Y3K"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Me</title>
+<link rel="stylesheet" href="style.css?v=23">
 </head>
 <body>
-  <!-- Sidebar -->
-  <div id="sidebar" class="sidebar">
-    <div class="menu-icon" onclick="toggleSidebar()">☰</div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About Me</a>
-      <a href="projects.html">Projects</a>
-      <a href="review.html">Submit Review</a>
-      <a href="reviews.html">Reviews</a>
-      <a href="contact.html">Contact</a>
-      <a href="#" id="loginLink" onclick="toggleLogin()">Login</a>
-    </nav>
+<div class="background-grid"></div>
+
+<div id="sidebar" class="sidebar">
+  <div class="menu-icon" onclick="toggleSidebar()">☰</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About Me</a>
+    <a href="projects.html">Projects</a>
+    <a href="review.html">Submit Review</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="contact.html">Contact</a>
+    <a href="me.html">Me</a>
+  </nav>
+</div>
+
+<div id="main">
+  <h1>My Profile</h1>
+  <div class="profile-card">
+    <img id="profilePic" src="default.png" alt="Profile Picture">
+    <h2 id="displayName">Your Name</h2>
   </div>
 
-  <!-- Main content -->
-  <div id="main">
-    <h1>Projects</h1>
-    <div class="project-card">
-      <h2>Website Experiments</h2>
-      <p><a href="index.html" target="_blank">Visit Main Page</a></p>
-    </div>
-    <div class="project-card">
-      <h2>Streaming Content</h2>
-      <p><a href="https://twitch.tv/consrant581" target="_blank">Visit Twitch</a></p>
-    </div>
-    <div class="project-card">
-      <h2>Cyberpunk Fun</h2>
-      <p>More projects coming soon!</p>
-    </div>
-
-    <div id="loginDiv" class="login-form">
-      <h2>Sign In / Sign Up</h2>
-      <input type="email" id="email" placeholder="Email">
-      <input type="password" id="password" placeholder="Password">
-      <button onclick="signIn()">Sign In</button>
-      <button onclick="signUp()">Sign Up</button>
-      <p id="loginMessage"></p>
-    </div>
+  <div class="edit-profile">
+    <h2>Edit Profile</h2>
+    <label>Change Name:</label>
+    <input type="text" id="nameInput" placeholder="Enter your name">
+    <label>Change Profile Picture URL:</label>
+    <input type="text" id="picInput" placeholder="Enter image URL">
+    <button onclick="updateProfile()">Save Changes</button>
+    <p id="profileMessage"></p>
   </div>
+</div>
 
-  <script>
-    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('expanded'); }
-    function toggleLogin() {
-      const loginDiv = document.getElementById('loginDiv');
-      loginDiv.style.display = loginDiv.style.display === 'block' ? 'none' : 'block';
-    }
-    function signUp() {
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      auth.createUserWithEmailAndPassword(email, password)
-        .then(user => document.getElementById('loginMessage').textContent = "Account created!")
-        .catch(err => document.getElementById('loginMessage').textContent = err.message);
-    }
-    function signIn() {
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      auth.signInWithEmailAndPassword(email, password)
-        .then(user => document.getElementById('loginMessage').textContent = "Signed in!")
-        .catch(err => document.getElementById('loginMessage').textContent = err.message);
-    }
-    auth.onAuthStateChanged(user => { if(user) document.getElementById('loginDiv').style.display = 'none'; });
-  </script>
-</body>
-</html>
+<script>
+// Load profile from localStorage
+window.onload = () => {
+  const name = localStorage.getItem('devanName');
+  const pic = localStorage.getItem('devanPic');
+  if(name) document.getElementById('displayName').textContent = name;
+  if(pic) document.getElementById('profilePic').src = pic;
+}
+
+function updateProfile() {
+  const name = document.getElementById('nameInput').value;
+  const pic = document.getElementById('picInput').value;
+  if(name) {
+    document.getElementById('displayName').textContent = name;
+    localStorage.setItem('devanName', name);
+  }
+  if(pic) {
+    document.getElementById('profilePic').src = pic;
+    localStorage.setItem('devanPic', pic);
+  }
+  document.getElementById('profileMessage').textContent = "Profile updated!";
+}
+
+// Sidebar toggle
+function toggleSidebar(){document.getEleme
