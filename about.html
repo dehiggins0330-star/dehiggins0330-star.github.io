@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About Me</title>
-<link rel="stylesheet" href="style.css?v=24">
+<link rel="stylesheet" href="style.css?v=25">
 </head>
 <body>
 <div class="background-grid"></div>
@@ -18,7 +18,7 @@
     <a href="review.html">Submit Review</a>
     <a href="reviews.html">Reviews</a>
     <a href="contact.html">Contact</a>
-    <a href="me.html">Me</a>
+    <a id="profileLink" href="#">Me</a>
   </nav>
 </div>
 
@@ -30,6 +30,18 @@
 
 <script>
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('expanded');}
+
+window.onload = () => {
+  const signedIn = localStorage.getItem('signedIn');
+  const profileLink = document.getElementById('profileLink');
+  if(signedIn === "true"){
+      profileLink.textContent = "Me";
+      profileLink.href = "me.html";
+  } else {
+      profileLink.textContent = "Login";
+      profileLink.href = "login.html";
+  }
+}
 </script>
 </body>
 </html>
