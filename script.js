@@ -1,4 +1,4 @@
-let zIndexCounter = 1; // Track window stacking order
+let zIndexCounter = 1;
 
 // Open/Close Windows
 const icons = document.querySelectorAll('.icon');
@@ -11,7 +11,7 @@ icons.forEach(icon => {
     win.style.display = 'block';
     win.style.top = '50px';
     win.style.left = '50px';
-    win.style.zIndex = ++zIndexCounter; // Bring to front
+    win.style.zIndex = ++zIndexCounter;
   });
 });
 
@@ -21,7 +21,7 @@ closeButtons.forEach(btn => {
   });
 });
 
-// Fun Time Slots
+// Time Slots
 const slots = document.querySelectorAll('.slot');
 const info = document.getElementById('slot-info');
 
@@ -31,7 +31,7 @@ slots.forEach(slot => {
   });
 });
 
-// Make windows draggable
+// Draggable windows
 windows.forEach(win => {
   const titleBar = win.querySelector('.title-bar');
   let offsetX = 0, offsetY = 0, isDragging = false;
@@ -40,7 +40,7 @@ windows.forEach(win => {
     isDragging = true;
     offsetX = e.clientX - win.offsetLeft;
     offsetY = e.clientY - win.offsetTop;
-    win.style.zIndex = ++zIndexCounter; // Bring to front when dragging
+    win.style.zIndex = ++zIndexCounter;
   });
 
   document.addEventListener('mousemove', (e) => {
@@ -55,7 +55,7 @@ windows.forEach(win => {
   });
 });
 
-// Start menu toggle
+// Start Menu toggle
 const startBtn = document.getElementById('start-btn');
 const startMenu = document.getElementById('start-menu');
 
@@ -72,6 +72,19 @@ menuItems.forEach(item => {
     win.style.top = '50px';
     win.style.left = '50px';
     win.style.zIndex = ++zIndexCounter;
-    startMenu.style.display = 'none'; // close menu
+    startMenu.style.display = 'none';
   });
 });
+
+// Clock
+function updateClock() {
+  const clock = document.getElementById('taskbar-clock');
+  const now = new Date();
+  const hours = now.getHours().toString().padStart(2,'0');
+  const minutes = now.getMinutes().toString().padStart(2,'0');
+  const seconds = now.getSeconds().toString().padStart(2,'0');
+  clock.textContent = `${hours}:${minutes}:${seconds}`;
+}
+
+setInterval(updateClock, 1000);
+updateClock();
