@@ -13,7 +13,7 @@ header {
   text-align: center;
   color: #fff;
   background-color: #004040;
-  padding: 6px; /* smaller header */
+  padding: 6px;
   font-size: 1.2em;
   font-weight: bold;
 }
@@ -22,18 +22,24 @@ header {
 #desktop {
   position: relative;
   width: 100%;
-  height: calc(100vh - 40px); /* smaller to fit screen */
+  height: calc(100vh - 35px);
   overflow: hidden;
 }
 
 /* Windows */
 .window {
   position: absolute;
-  width: 300px;
+  width: 80%;
+  max-width: 400px;
+  height: 60%;
+  max-height: 400px;
   border: 2px solid #000;
   background-color: #c0c0c0;
   box-shadow: 4px 4px 0 #000;
   display: none;
+  min-width: 250px;
+  min-height: 150px;
+  box-sizing: border-box;
 }
 
 /* Title bar */
@@ -60,27 +66,19 @@ header {
   background-color: #c0c0c0;
   color: #000;
   font-size: 0.9em;
+  overflow-y: auto;
+  max-height: calc(100% - 25px);
 }
 
-/* Desktop icons */
-#icons {
+/* Resize handle */
+.resize-handle {
   position: absolute;
-  bottom: 40px;
-  left: 100px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.icon {
-  width: 90px;
-  text-align: center;
-  background-color: #e0e0e0;
-  border: 1px solid #000;
-  padding: 4px;
-  cursor: pointer;
-  user-select: none;
-  font-size: 0.85em;
+  width: 12px;
+  height: 12px;
+  bottom: 0;
+  right: 0;
+  cursor: se-resize;
+  background-color: transparent;
 }
 
 /* Taskbar */
@@ -139,25 +137,6 @@ header {
 }
 
 .menu-item:hover {
-  background-color: #000080;
-  color: #fff;
-}
-
-/* Taskbar window buttons */
-#taskbar-buttons {
-  display: flex;
-  gap: 3px;
-}
-
-.taskbar-btn {
-  background-color: #e0e0e0;
-  border: 2px solid #000;
-  padding: 2px 5px;
-  cursor: pointer;
-  font-size: 0.8em;
-}
-
-.taskbar-btn.active {
   background-color: #000080;
   color: #fff;
 }
