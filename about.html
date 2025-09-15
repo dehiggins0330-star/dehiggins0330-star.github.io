@@ -4,36 +4,83 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Me</title>
-  <link rel="stylesheet" href="style.css?v=8">
+  <link rel="stylesheet" href="style.css?v=20">
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-auth-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCmOwbTZrGzc0zVRtD7fSasum1Qbdt_h-g",
+      authDomain: "consrantsite.firebaseapp.com",
+      projectId: "consrantsite",
+      storageBucket: "consrantsite.firebasestorage.app",
+      messagingSenderId: "108690378578",
+      appId: "1:108690378578:web:87d2d6d93f439f69c9f48b",
+      measurementId: "G-PL5XF14Y3K"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+  </script>
 </head>
 <body>
-  <div class="sidebar" id="sidebar">
-    <a href="index.html">Home</a>
-    <a href="about.html" class="active">About</a>
-    <a href="projects.html">Projects</a>
-    <a href="contact.html">Contact</a>
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <div class="menu-icon" onclick="toggleSidebar()">☰</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About Me</a>
+      <a href="projects.html">Projects</a>
+      <a href="review.html">Submit Review</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="contact.html">Contact</a>
+      <a href="#" id="loginLink" onclick="toggleLogin()">Login</a>
+    </nav>
   </div>
 
-  <div class="topbar">
-    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
-    <h1>About</h1>
-  </div>
+  <!-- Main content -->
+  <div id="main">
+    <h1>About Me</h1>
+    <p>I am Devan. I be doin stuff... like streaming and making website(s?) .... and other cool stuff.</p>
+    <p>Follow me: Twitch - <a href="https://twitch.tv/consrant581" target="_blank">consrant581</a>, YouTube - <a href="https://youtube.com/@consrant" target="_blank">consrant</a></p>
 
-  <div class="content">
-    <h2>Hello!</h2>
-    <div class="card">
-      <p>I am Devan. I be doin stuff... like streaming and making website(s?) .... and other cool stuff.</p>
-    </div>
-    <div class="card">
-      <p>📺 Twitch: <a href="https://www.twitch.tv/consrant581" target="_blank">consrant581</a></p>
-      <p>▶️ YouTube: <a href="https://www.youtube.com/@consrant" target="_blank">consrant</a></p>
+    <div id="loginDiv" class="login-form">
+      <h2>Sign In / Sign Up</h2>
+      <input type="email" id="email" placeholder="Email">
+      <input type="password" id="password" placeholder="Password">
+      <button onclick="signIn()">Sign In</button>
+      <button onclick="signUp()">Sign Up</button>
+      <p id="loginMessage"></p>
     </div>
   </div>
 
   <script>
     function toggleSidebar() {
-      document.getElementById("sidebar").classList.toggle("expanded");
+      document.getElementById('sidebar').classList.toggle('expanded');
     }
+
+    function toggleLogin() {
+      const loginDiv = document.getElementById('loginDiv');
+      loginDiv.style.display = loginDiv.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function signUp() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(user => document.getElementById('loginMessage').textContent = "Account created!")
+        .catch(err => document.getElementById('loginMessage').textContent = err.message);
+    }
+
+    function signIn() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      auth.signInWithEmailAndPassword(email, password)
+        .then(user => document.getElementById('loginMessage').textContent = "Signed in!")
+        .catch(err => document.getElementById('loginMessage').textContent = err.message);
+    }
+
+    auth.onAuthStateChanged(user => {
+      if(user) document.getElementById('loginDiv').style.display = 'none';
+    });
   </script>
 </body>
 </html>
