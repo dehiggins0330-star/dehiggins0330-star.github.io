@@ -4,6 +4,24 @@ let zIndexCounter = 1;
 const icons = document.querySelectorAll('.icon');
 const windows = document.querySelectorAll('.window');
 const closeButtons = document.querySelectorAll('.close-btn');
+const taskbarButtonsContainer = document.getElementById('taskbar-buttons');
+
+function createTaskbarButton(winId, title) {
+  let btn = document.createElement('button');
+  btn.className = 'taskbar-btn';
+  btn.textContent = title;
+  btn.dataset.window = winId;
+  btn.addEventListener('click', () => {
+    const win = document.getElementById(winId);
+    if(win.style.display === 'none') {
+      win.style.display = 'block';
+      win.style.zIndex = ++zIndexCounter;
+    } else {
+      win.style.display = 'none';
+    }
+  });
+  taskbarButtonsContainer.appendChild(btn);
+}
 
 icons.forEach(icon => {
   icon.addEventListener('click', () => {
@@ -12,12 +30,18 @@ icons.forEach(icon => {
     win.style.top = '50px';
     win.style.left = '50px';
     win.style.zIndex = ++zIndexCounter;
+
+    // Create taskbar button if not exists
+    if(!document.querySelector(`.taskbar-btn[data-window="${win.id}"]`)) {
+      createTaskbarButton(win.id, icon.textContent);
+    }
   });
 });
 
 closeButtons.forEach(btn => {
   btn.addEventListener('click', () => {
-    btn.parentElement.parentElement.style.display = 'none';
+    const win = btn.parentElement.parentElement;
+    win.style.display = 'none';
   });
 });
 
@@ -72,6 +96,12 @@ menuItems.forEach(item => {
     win.style.top = '50px';
     win.style.left = '50px';
     win.style.zIndex = ++zIndexCounter;
+
+    // Create taskbar button if not exists
+    if(!document.querySelector(`.taskbar-btn[data-window="${win.id}"]`)) {
+      createTaskbarButton(win.id, win.querySelector('.title-bar span').textContent);
+    }
+
     startMenu.style.display = 'none';
   });
 });
