@@ -3,157 +3,148 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Consrant Desktop</title>
+<title>Devan's Desktop</title>
 <link rel="stylesheet" href="style.css">
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database-compat.js"></script>
+
 </head>
 <body>
-<div id="desktop">
-  <div id="selection-box"></div>
 
-  <!-- Desktop Icons -->
-  <div class="icon" data-window="about-window"><img src="icons/about.png" alt="About"><span>About Me</span></div>
-  <div class="icon" data-window="projects-window"><img src="icons/projects.png" alt="Projects"><span>Projects</span></div>
-  <div class="icon" data-window="slots-window"><img src="icons/timeslot.png" alt="Time Slots"><span>Time Slots</span></div>
-  <div class="icon" data-window="contact-window"><img src="icons/email.png" alt="Contact"><span>Contact</span></div>
-  <div class="icon" data-window="notepad-window"><img src="icons/notepad.png" alt="Notepad"><span>Notepad</span></div>
-  <div class="icon" data-window="calc-window"><img src="icons/calc.png" alt="Calculator"><span>Calculator</span></div>
-  <div class="icon" data-window="browser-window"><img src="icons/browser.png" alt="Browser"><span>Browser</span></div>
-  <div class="icon" data-window="youtube-window"><img src="icons/youtube.png" alt="YouTube"><span>YouTube</span></div>
-  <div class="icon" data-window="music-window"><img src="icons/music.png" alt="Music"><span>Music</span></div>
-  <div class="icon" data-window="gallery-window"><img src="icons/gallery.png" alt="Gallery"><span>Gallery</span></div>
-  <div class="icon" data-window="terminal-window"><img src="icons/terminal.png" alt="Terminal"><span>Terminal</span></div>
-  <div class="icon" data-window="games-window"><img src="icons/games.png" alt="Games"><span>Games</span></div>
-  <div class="icon" data-window="settings-window"><img src="icons/settings.png" alt="Settings"><span>Settings</span></div>
-  <div class="icon" data-window="chat-window"><img src="icons/chat.png" alt="Chat"><span>Chatroom</span></div>
-  <div class="icon" data-window="easter-window"><img src="icons/easter.png" alt="Easter"><span>Easter Egg</span></div>
+<!-- Desktop -->
+<div id="desktop">
+
+  <!-- Icons -->
+  <div class="icon" data-window="browser-window">
+    <img src="icons/browser.png" alt="Browser">
+    Browser
+  </div>
+
+  <div class="icon" data-window="youtube-window">
+    <img src="icons/youtube.png" alt="YouTube">
+    YouTube
+  </div>
+
+  <div class="icon" data-window="calculator-window">
+    <img src="icons/calculator.png" alt="Calculator">
+    Calculator
+  </div>
+
+  <div class="icon" data-window="notepad-window">
+    <img src="icons/notepad.png" alt="Notepad">
+    Notepad
+  </div>
+
+  <div class="icon" data-window="terminal-window">
+    <img src="icons/terminal.png" alt="Terminal">
+    Terminal
+  </div>
+
+  <div class="icon" data-window="chat-window">
+    <img src="icons/chat.png" alt="Chatroom">
+    Chatroom
+  </div>
 
   <!-- Windows -->
-  <div class="window" id="about-window">
-    <div class="title-bar"><span>About Me</span><span class="close-btn">✖</span></div>
+  <div class="window" id="browser-window">
+    <div class="title-bar">
+      <span>Browser</span>
+      <span class="close-btn">✖</span>
+    </div>
     <div class="window-content">
-      <p>I’m Devan. I love coding, retro tech, games, and making fun projects. Welcome to my site!</p>
+      <p>Click button to open: <button onclick="window.open('https://www.google.com','_blank')">Open Browser</button></p>
     </div>
     <div class="resize-handle"></div>
   </div>
 
-  <div class="window" id="projects-window">
-    <div class="title-bar"><span>Projects</span><span class="close-btn">✖</span></div>
+  <div class="window" id="youtube-window">
+    <div class="title-bar">
+      <span>YouTube</span>
+      <span class="close-btn">✖</span>
+    </div>
     <div class="window-content">
-      <ul>
-        <li>Side-View Shooter – Python multiplayer</li>
-        <li>Retro Minecraft Clone – 3D blocks, multiplayer</li>
-      </ul>
+      <p>Click button to open: <button onclick="window.open('https://www.youtube.com','_blank')">Open YouTube</button></p>
     </div>
     <div class="resize-handle"></div>
   </div>
 
-  <div class="window" id="slots-window">
-    <div class="title-bar"><span>Fun Time Slots</span><span class="close-btn">✖</span></div>
-    <div class="window-content">
-      <div class="slot" data-info="Usually coding 2–5 PM">2–5 PM</div>
-      <div class="slot" data-info="Streaming games 7 PM">7 PM</div>
-      <div class="slot" data-info="Late night hacking 11 PM">11 PM</div>
-      <p id="slot-info">Click a slot to see what I’m up to!</p>
+  <div class="window" id="calculator-window">
+    <div class="title-bar">
+      <span>Calculator</span>
+      <span class="close-btn">✖</span>
     </div>
-    <div class="resize-handle"></div>
-  </div>
-
-  <div class="window" id="contact-window">
-    <div class="title-bar"><span>Contact</span><span class="close-btn">✖</span></div>
     <div class="window-content">
-      <p>Email: <a href="mailto:devan@consrant.online">devan@consrant.online</a></p>
-      <p>Support: <a href="https://cash.app/$deh0330" target="_blank">CashApp</a></p>
-    </div>
-    <div class="resize-handle"></div>
-  </div>
-
-  <div class="window" id="notepad-window">
-    <div class="title-bar"><span>Notepad</span><span class="close-btn">✖</span></div>
-    <div class="window-content">
-      <textarea placeholder="Type something..."></textarea>
-    </div>
-    <div class="resize-handle"></div>
-  </div>
-
-  <div class="window" id="calc-window">
-    <div class="title-bar"><span>Calculator</span><span class="close-btn">✖</span></div>
-    <div class="window-content">
-      <input type="text" id="calc-display" readonly>
+      <input type="text" id="calc-display" readonly style="width:100%; font-size:16px;">
       <div id="calc-buttons"></div>
     </div>
     <div class="resize-handle"></div>
   </div>
 
-  <!-- Gallery, Music, Terminal, Games, Settings, Easter Egg -->
-  <div class="window" id="gallery-window">
-    <div class="title-bar"><span>Gallery</span><span class="close-btn">✖</span></div>
-    <div class="window-content"><p>Gallery placeholder.</p></div>
-    <div class="resize-handle"></div>
-  </div>
-
-  <div class="window" id="music-window">
-    <div class="title-bar"><span>Music Player</span><span class="close-btn">✖</span></div>
+  <div class="window" id="notepad-window">
+    <div class="title-bar">
+      <span>Notepad</span>
+      <span class="close-btn">✖</span>
+    </div>
     <div class="window-content">
-      <audio controls src="music/sample.mp3"></audio>
-      <p>Sample track. Replace with your own music!</p>
+      <textarea placeholder="Write something..."></textarea>
     </div>
     <div class="resize-handle"></div>
   </div>
 
   <div class="window" id="terminal-window">
-    <div class="title-bar"><span>Terminal</span><span class="close-btn">✖</span></div>
-    <div class="window-content" style="background:black;color:white;overflow:auto;" id="terminal-output"></div>
-    <input type="text" id="terminal-input" style="width:100%;box-sizing:border-box;background:black;color:white;border:none;">
-    <div class="resize-handle"></div>
-  </div>
-
-  <div class="window" id="games-window">
-    <div class="title-bar"><span>Games</span><span class="close-btn">✖</span></div>
-    <div class="window-content"><p>Games placeholder.</p></div>
-    <div class="resize-handle"></div>
-  </div>
-
-  <div class="window" id="settings-window">
-    <div class="title-bar"><span>Settings</span><span class="close-btn">✖</span></div>
-    <div class="window-content"><p>Settings placeholder.</p></div>
+    <div class="title-bar">
+      <span>Terminal</span>
+      <span class="close-btn">✖</span>
+    </div>
+    <div class="window-content">
+      <div id="terminal-output" style="height:200px; overflow:auto; border:1px solid #aaa; padding:5px; background:#000; color:#0f0;"></div>
+      <input type="text" id="terminal-input" placeholder="Type a command..." style="width:100%; box-sizing:border-box;">
+    </div>
     <div class="resize-handle"></div>
   </div>
 
   <div class="window" id="chat-window">
-    <div class="title-bar"><span>Chatroom</span><span class="close-btn">✖</span></div>
-    <div class="window-content" id="chat-content" style="overflow-y:auto;height:80%;border:1px solid #aaa;padding:5px;"></div>
-    <input type="text" id="chat-input" placeholder="Type a message..." style="width:100%;box-sizing:border-box;">
+    <div class="title-bar">
+      <span>Chatroom</span>
+      <span class="close-btn">✖</span>
+    </div>
+    <div class="window-content">
+      <div>
+        Username: <input type="text" id="chat-username" placeholder="Enter username">
+        Room: 
+        <select id="chat-room">
+          <option value="room1">Room 1</option>
+          <option value="room2">Room 2</option>
+          <option value="room3">Room 3</option>
+          <option value="room4">Room 4</option>
+          <option value="room5">Room 5</option>
+        </select>
+      </div>
+      <div id="chat-content" style="height:200px; overflow:auto; border:1px solid #aaa; margin:5px 0; padding:5px; background:white;"></div>
+      <input type="text" id="chat-input" placeholder="Type message and press Enter" style="width:100%; box-sizing:border-box;">
+    </div>
     <div class="resize-handle"></div>
   </div>
 
-  <div class="window" id="easter-window">
-    <div class="title-bar"><span>Easter Egg</span><span class="close-btn">✖</span></div>
-    <div class="window-content"><p>🎉 Surprise! You found the Easter Egg! 🎉</p></div>
-    <div class="resize-handle"></div>
-  </div>
+  <!-- Selection Box -->
+  <div id="selection-box"></div>
+
 </div>
 
 <!-- Taskbar -->
 <div id="taskbar">
   <div id="taskbar-start-container">
     <button id="start-btn">Start</button>
-    <div id="start-menu" class="hidden">
+    <div id="start-menu">
       <div class="menu-section">Apps</div>
-      <div class="menu-item" data-window="about-window">About Me</div>
-      <div class="menu-item" data-window="projects-window">Projects</div>
-      <div class="menu-item" data-window="slots-window">Time Slots</div>
-      <div class="menu-item" data-window="contact-window">Contact</div>
-      <div class="menu-item" data-window="notepad-window">Notepad</div>
-      <div class="menu-item" data-window="calc-window">Calculator</div>
       <div class="menu-item" data-window="browser-window">Browser</div>
       <div class="menu-item" data-window="youtube-window">YouTube</div>
-      <div class="menu-item" data-window="music-window">Music</div>
-      <div class="menu-item" data-window="gallery-window">Gallery</div>
+      <div class="menu-item" data-window="calculator-window">Calculator</div>
+      <div class="menu-item" data-window="notepad-window">Notepad</div>
       <div class="menu-item" data-window="terminal-window">Terminal</div>
-      <div class="menu-item" data-window="games-window">Games</div>
-      <div class="menu-item" data-window="settings-window">Settings</div>
       <div class="menu-item" data-window="chat-window">Chatroom</div>
-      <div class="menu-item" data-window="easter-window">Easter Egg</div>
     </div>
   </div>
   <div id="taskbar-clock"></div>
