@@ -4,7 +4,8 @@ body {
   margin: 0;
   padding: 0;
   background-color: #008080; /* teal Windows 98 */
-  overflow: hidden;
+  height: 100vh;
+  overflow: hidden; /* prevents scrolling */
 }
 
 /* Header */
@@ -12,7 +13,7 @@ header {
   text-align: center;
   color: #fff;
   background-color: #004040;
-  padding: 1em;
+  padding: 10px;
   font-size: 1.5em;
   font-weight: bold;
 }
@@ -21,7 +22,8 @@ header {
 #desktop {
   position: relative;
   width: 100%;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 50px); /* 50px header */
+  overflow: hidden;
 }
 
 /* Windows */
@@ -62,8 +64,8 @@ header {
 /* Desktop icons */
 #icons {
   position: absolute;
-  bottom: 20px;
-  left: 20px;
+  bottom: 10px;
+  left: 150px;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -78,6 +80,48 @@ header {
   cursor: pointer;
   user-select: none;
   font-size: 0.9em;
+}
+
+/* Start Menu */
+#start-menu-container {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+#start-btn {
+  width: 60px;
+  height: 30px;
+  font-weight: bold;
+  background-color: #c0c0c0;
+  border: 2px solid #000;
+  cursor: pointer;
+}
+
+#start-menu {
+  position: absolute;
+  bottom: 35px;
+  left: 0;
+  width: 150px;
+  border: 2px solid #000;
+  background-color: #c0c0c0;
+  display: none;
+  flex-direction: column;
+}
+
+#start-menu .menu-item {
+  padding: 5px 10px;
+  border-bottom: 1px solid #000;
+  cursor: pointer;
+}
+
+#start-menu .menu-item:hover {
+  background-color: #000080;
+  color: #fff;
+}
+
+.hidden {
+  display: none;
 }
 
 /* Time slots inside window */
