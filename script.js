@@ -1,4 +1,21 @@
 // ---------------------------
+// Firebase Setup
+// ---------------------------
+const firebaseConfig = {
+    apiKey: "AIzaSyCmOwbTZrGzc0zVRtD7fSasum1Qbdt_h-g",
+    authDomain: "consrantsite.firebaseapp.com",
+    databaseURL: "https://consrantsite-default-rtdb.firebaseio.com",
+    projectId: "consrantsite",
+    storageBucket: "consrantsite.firebasestorage.app",
+    messagingSenderId: "108690378578",
+    appId: "1:108690378578:web:87d2d6d93f439f69c9f48b",
+    measurementId: "G-PL5XF14Y3K"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// ---------------------------
 // Taskbar Clock
 // ---------------------------
 function updateClock() {
@@ -130,21 +147,6 @@ calcButtons.forEach(b => {
 });
 
 // ---------------------------
-// Chatroom App
-// ---------------------------
-const chatInput = document.getElementById('chat-input');
-const chatContent = document.getElementById('chat-content');
-
-chatInput.addEventListener('keypress', function(e){
-  if(e.key === 'Enter' && chatInput.value.trim() !== '') {
-    const msg = chatInput.value.trim();
-    chatContent.innerHTML += `<p><b>You:</b> ${msg}</p>`;
-    chatInput.value = '';
-    chatContent.scrollTop = chatContent.scrollHeight;
-  }
-});
-
-// ---------------------------
 // Terminal App
 // ---------------------------
 const termInput = document.getElementById('terminal-input');
@@ -184,7 +186,6 @@ function openExternalApp(url, title) {
   win.querySelector('.close-btn').onclick = () => win.remove();
   win.querySelector('#open-link').onclick = () => window.open(url, '_blank');
 
-  // Make draggable
   const bar = win.querySelector('.title-bar');
   bar.onmousedown = function(e) {
     drag = win;
@@ -197,6 +198,50 @@ document.getElementById('browser-window').onclick = () => openExternalApp('https
 document.getElementById('youtube-window').onclick = () => openExternalApp('https://www.youtube.com','YouTube');
 
 // ---------------------------
+// Multi-user Chatroom (Firebase)
+// ---------------------------
+const chatInput = document.getElementById('chat-input');
+const chatContent = document.getElementById('chat-content');
+const usernameInput = document.getElementById('chat-username');
+const roomSelect = document.getElementById('chat-room');
+
+let currentRoom = roomSelect.value;
+
+roomSelect.addEventListener('change', () => {
+  currentRoom = roomSelect.value;
+  chatContent.innerHTML = '';
+  listenRoom(currentRoom);
+});
+
+// Listen for new messages
+function listenRoom(room) {
+  const roomRef = db.ref('rooms/' + room);
+  roomRef.off(); // remove previous listeners
+  roomRef.on('child_added', snapshot => {
+    const msg = snapshot.val();
+    chatContent.innerHTML += `<p><b>${msg.username}:</b> ${msg.text}</p>`;
+    chatContent.scrollTop = chatContent.scrollHeight;
+  });
+}
+
+listenRoom(currentRoom);
+
+// Send messages
+chatInput.addEventListener('keydown', function(e){
+  e.stopPropagation();
+  if(e.key === 'Enter' && chatInput.value.trim() !== '' && usernameInput.value.trim() !== '') {
+    const msg = {
+      username: usernameInput.value.trim(),
+      text: chatInput.value.trim(),
+      timestamp: Date.now()
+    };
+    db.ref('rooms/' + currentRoom).push(msg);
+    chatInput.value = '';
+    e.preventDefault();
+  }
+});
+
+// ---------------------------
 // Desktop Selection Box
 // ---------------------------
 const desktop = document.getElementById('desktop');
@@ -205,7 +250,7 @@ let selecting = false;
 let startX, startY;
 
 desktop.addEventListener('mousedown', function(e) {
-  if(e.target.classList.contains('window') || e.target.classList.contains('icon')) return;
+  if(e.target.closest('.window') || e.target.closest('.icon')) return;
   selecting = true;
   startX = e.clientX;
   startY = e.clientY;
