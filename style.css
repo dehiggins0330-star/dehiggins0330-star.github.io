@@ -43,6 +43,12 @@ body {
   text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
 }
 
+.sidebar a.active {
+  color: #0ff;
+  font-weight: bold;
+  text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+}
+
 /* Main content */
 .main {
   flex: 1;
@@ -58,29 +64,10 @@ body {
   animation: glitch 1.5s infinite;
 }
 
-.main p, .main li {
+.main p {
   font-size: 1.1rem;
   line-height: 1.6;
   color: #ddd;
-}
-
-ul {
-  margin-top: 10px;
-  padding-left: 20px;
-}
-
-.card {
-  background: #222;
-  border: 2px solid #0ff;
-  border-radius: 8px;
-  padding: 20px;
-  margin: 10px 0;
-  transition: 0.3s;
-}
-
-.card:hover {
-  background: #333;
-  box-shadow: 0 0 10px #0ff;
 }
 
 /* Glitch effect */
