@@ -1,214 +1,151 @@
-/* Body and desktop */
-body {
-  font-family: 'Courier New', monospace;
+body, html {
   margin: 0;
   padding: 0;
-  background-color: #008080;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
+  font-family: 'Courier New', monospace;
+  background: #008080;
 }
 
-/* Header */
-header {
-  text-align: center;
-  color: #fff;
-  background-color: #004040;
-  padding: 6px;
-  font-size: 1.2em;
-  font-weight: bold;
-}
-
-/* Desktop container */
 #desktop {
-  position: relative;
   width: 100%;
-  height: calc(100vh - 35px);
+  height: 100%;
+  position: relative;
   overflow: hidden;
 }
 
-/* Selection Box */
-#selection-box {
-  position: absolute;
-  border: 2px dashed #fff;
-  background-color: rgba(0, 0, 255, 0.2);
-  display: none;
-  pointer-events: none;
-  z-index: 1000;
-}
-
-/* Desktop Icons */
 .icon {
   width: 64px;
   text-align: center;
-  color: #fff;
   position: absolute;
   cursor: pointer;
-  font-size: 0.75em;
+  color: white;
+  font-size: 12px;
 }
+
 .icon img {
   width: 48px;
   height: 48px;
 }
 
-/* Windows */
 .window {
+  width: 300px;
+  height: 200px;
+  background: #c0c0c0;
+  border: 2px solid #fff;
   position: absolute;
-  width: 80%;
-  max-width: 400px;
-  height: 60%;
-  max-height: 400px;
-  border: 2px solid #000;
-  background-color: #c0c0c0;
-  box-shadow: 4px 4px 0 #000;
   display: none;
-  min-width: 250px;
-  min-height: 150px;
   box-sizing: border-box;
-  overflow: hidden;
 }
 
-/* Title bar */
 .title-bar {
-  background-color: #000080;
-  color: #fff;
-  padding: 3px 6px;
-  display: flex;
-  justify-content: space-between;
+  background: #000080;
+  color: white;
+  padding: 2px 5px;
   cursor: move;
-  user-select: none;
-  font-weight: bold;
-}
-
-/* Close button */
-.close-btn {
-  cursor: pointer;
-  font-weight: bold;
-}
-
-/* Window content */
-.window-content {
-  padding: 8px;
-  background-color: #c0c0c0;
-  color: #000;
-  font-size: 0.9em;
-  overflow-y: auto;
-  max-height: calc(100% - 25px);
-}
-
-/* Resize handle */
-.resize-handle {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  bottom: 0;
-  right: 0;
-  cursor: se-resize;
-  background-color: transparent;
-}
-
-/* Taskbar */
-#taskbar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 35px;
-  background-color: #c0c0c0;
-  border-top: 2px solid #000;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 6px;
+}
+
+.title-bar .close-btn {
+  cursor: pointer;
+}
+
+.window-content {
+  padding: 5px;
+  background: #c0c0c0;
+  width: 100%;
+  height: calc(100% - 24px);
+  overflow: auto;
+}
+
+.resize-handle {
+  width: 10px;
+  height: 10px;
+  background: #000;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  cursor: se-resize;
+}
+
+#taskbar {
+  width: 100%;
+  height: 30px;
+  background: #000080;
+  color: white;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
   box-sizing: border-box;
-  font-size: 0.85em;
 }
 
 #taskbar-start-container {
+  display: flex;
+  align-items: center;
   position: relative;
 }
 
 #start-btn {
-  width: 55px;
-  height: 28px;
-  font-weight: bold;
-  background-color: #e0e0e0;
-  border: 2px solid #000;
+  margin-left: 5px;
   cursor: pointer;
 }
 
 #start-menu {
   position: absolute;
-  bottom: 35px;
+  bottom: 30px;
   left: 0;
-  width: 160px;
-  border: 2px solid #000;
-  background-color: #c0c0c0;
-  display: none;
+  width: 200px;
+  background: #c0c0c0;
+  display: flex;
   flex-direction: column;
-  z-index: 1000;
+  border: 2px solid #fff;
+  z-index: 9999;
 }
 
+.hidden { display: none; }
+
 .menu-section {
-  padding: 4px 8px;
+  background: #000080;
+  color: white;
+  padding: 5px;
   font-weight: bold;
-  background-color: #d0d0d0;
-  border-bottom: 1px solid #000;
 }
 
 .menu-item {
-  padding: 4px 8px;
-  border-bottom: 1px solid #000;
+  padding: 5px;
   cursor: pointer;
 }
 
 .menu-item:hover {
-  background-color: #000080;
-  color: #fff;
+  background: #808080;
 }
 
-/* Clock */
-#taskbar-clock {
-  font-family: monospace;
-  padding-right: 6px;
+#selection-box {
+  position: absolute;
+  border: 1px dashed #fff;
+  background: rgba(255,255,255,0.2);
+  display: none;
+  pointer-events: none;
 }
 
-/* Time slots */
-.slot {
-  display: inline-block;
-  margin: 4px;
-  padding: 4px 8px;
-  border: 1px solid #000;
-  background-color: #fff;
-  cursor: pointer;
-  font-size: 0.85em;
-}
-
-.slot:hover {
-  background-color: #000;
-  color: #fff;
-}
-
-/* Notepad textarea */
-textarea {
-  font-family: monospace;
-  font-size: 0.85em;
-  box-sizing: border-box;
-}
-
-/* Calculator */
-#calc-content {
-  display: flex;
-  flex-direction: column;
-}
-#calc-display {
-  width: 100%;
-  height: 30px;
-  font-size: 1em;
-  margin-bottom: 4px;
-}
 #calc-buttons button {
-  width: 23%;
-  margin: 1%;
-  height: 30px;
-  font-size: 1em;
+  width: 25%;
+  padding: 5px;
+  box-sizing: border-box;
+  cursor: pointer;
+  margin: 0;
+}
+
+textarea {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  resize: none;
+  font-family: monospace;
+  font-size: 14px;
 }
